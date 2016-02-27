@@ -1,0 +1,36 @@
+<ion-view title="Activity in Progress">
+
+	<style type="text/css">
+	#map_canvas { 
+		height: 560px; 
+		width: 100%  }
+	
+	#map_canvas img {
+		max-width: none;
+	}
+	
+	#map_canvas div {
+	    -webkit-transform: translate3d(0,0,0);
+	}
+
+	.demo-map{
+   	display:block;
+    height:400px;
+    width:100%;
+    margin-bottom:15px;
+}
+
+	</style>
+
+	    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activityInProgressCtrl">
+	       
+	       {{searchLocation}}
+
+	       <div demo-map ng-model="searchLocation" class="demo-map">
+        	
+        	</div>  
+
+	        <a ui-sref="activityCompleted" class="button button-positive button-block ">Finish Activity!</a>
+	    </ion-content>
+
+</ion-view>
