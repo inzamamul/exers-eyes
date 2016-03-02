@@ -1,9 +1,15 @@
 <ion-view title="Activity List">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <ion-list>
-            <ion-item ui-sref="tabsController.activity1Details">Activity 1 Date; Distance; Time; Calories</ion-item>
-            <ion-item ui-sref="tabsController.activity2Details">Activity 2 Date; Distance; Time; Calories</ion-item>
-            <ion-item ui-sref="tabsController.activity3Details">Activity 3 Date; Distance; Time; Calories</ion-item>
-        </ion-list>
+        
+        <div ng-controller="activityListCtrl"> 
+	        <ion-list>
+	            <ion-item ui-sref="tabsController.activity1Details" ng-repeat="activity in activities"> 
+	            {{ activity.date }} : {{ activity.distance}} km : {{ activity.calories }} Kcal burned!
+	        	</ion-item>
+	            <!-- <ion-item ui-sref="tabsController.activity2Details">Activity 2 Date; Distance; Time; Calories</ion-item>
+	            <ion-item ui-sref="tabsController.activity3Details">Activity 3 Date; Distance; Time; Calories</ion-item> -->
+	        </ion-list>
+    	</div> 
+
     </ion-content>
 </ion-view>
