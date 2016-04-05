@@ -1,27 +1,22 @@
 <ion-view title="Activity Completed">
-    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header" ng-controller="activityCtrl">
         <div>
             <center>
-                <h4>Congratulations!</h4>
+                <h1>Congratulations on your activity {{ fname }}!</h1>
             </center>
-
-
-            <div>
-                <h5>Distance travelled: WW</h5>
-            </div>
-            <div>
-                <h5>Time Taken: XX</h5>
-            </div>
-            <div>
-                <h5>Average Pace: YY</h5>
-            </div>
-            <div>
-                <h5>Calories Burned: zz</h5>
-            </div>
+</br> 
+            <center>
+                <h2 ng-model="activity.distance">Distance travelled: {{ activity.distance  }} km</h2>
+</br> 
+                <h2 ng-controller="stopwatchCtrl">Time Taken: {{ $scope.timer }} secs </h2>
+</br> 
+                <h2 ng-model="activity.avgpace">Average Pace: {{ activity.avgpace  }} km/min</h2>
+</br> 
+                <h2 ng-model="activity.calburn">Calories Burned: {{ activity.calburn  }} calories</h2>
+          </center>
         </div>
-        <div style="text-align:center;">
-            <img src="img/8tbP1d1RJ6KGqVHxVqGU_the-hoff-thumbs.jpeg" width="200px" height="auto">
-        </div>
+
+    </br> 
         <a ui-sref="tabsController.activityList" class="button button-assertive button-block  icon-right ion-ios-arrow-forward">Tap here to complete activty</a>
     </ion-content>
 </ion-view>

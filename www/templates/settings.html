@@ -2,49 +2,41 @@
 
 <body ng-controller="settingsCtrl">
     
-    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header" >
+    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header" ng-controller="userCtrl" >
        
-        <form class="list">
-            
+    <ion-list>            
             <h4>About You!</h4>
             
             <label class="item item-input" name="first-name">
                 <span class="input-label">First Name</span>
                 <input type="text" placeholder="Your first Name" ng-model="user.fname">
             </label>
-        </form>
-
-        <form class="list">
+       
             <label class="item item-input" name="last-name">
                 <span class="input-label">Last Name</span>
                 <input type="text" placeholder="Your last name" ng-model="user.lname">
             </label>
-        </form>
-
-        <form class="list">
+            
             <label class="item item-input" name="age">
                 <span class="input-label">Age</span>
                 <input type="number" placeholder="Your age" string-to-number ng-model="user.age">
             </label>
-        </form>
-
-        <form class="list">
+        
+        
             <label class="item item-input" name="weight">
                 <span class="input-label">Weight (kg)</span> 
                 <input type="number" placeholder="Your weight" string-to-number ng-model="user.weight">
             </label>
-        </form>
-
-        <ion-list>
+    
+        
             <label class="item item-input" name="height">
                 <span class="input-label">Height (cm)</span>
                 <input type="number" placeholder="Your height" string-to-number ng-model="user.height">
             </label>
         </ion-list>
 
-        <button class="button button-positive button-block icon-left ion-arrow-right-b" ng-click='saveUser()' >Save Details</button>
+        <button class="button button-positive button-block icon-left ion-arrow-right-b" ng-click='storeUser()' >Save Details</button>
 
-        <ion-toggle ng-model="imperialMetric.checked" ng-change="imperialMetricChange()">Metric Measurements</ion-toggle>
 
     </ion-content>
 

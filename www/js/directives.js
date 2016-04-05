@@ -9,7 +9,6 @@ angular.module('app.directives', [])
 
 }])
 
-
 //parses string to integer wehn required
 .directive('stringToNumber', function() {
   return {
@@ -26,7 +25,7 @@ angular.module('app.directives', [])
 })
 
 // Google Maps directive 
-.directive('demoMap',function(){
+.directive('activityMap',function(){
   return {
     restrict: 'EA',
     require: '?ngModel',
