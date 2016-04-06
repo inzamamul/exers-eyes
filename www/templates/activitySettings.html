@@ -1,31 +1,21 @@
 <ion-view title="Activity Settings">
     <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activityCtrl">
-        <form class="list"></form>
-        <h5>Set up your activity {{ fname }}!</h5>
         
-        <ion-list >            
-            <label class="item item-input" name="distance">
-                <span class="input-label">Distance (km)</span>
-                <input type="number" placeholder="Distance (km)" string-to-number ng-model="activity.distance">   
-            </label>
 
-        </ion-list>
+        <center><h2>Set up your activity {{ fname }}!</h2></center>
         
-        <div>
-            <p> Your geo coordinates are: </p>
-
-            <li>Latitude</li>
-            <li>Longitude</li>
-
-        </div>
+        <form class="list">
+        <li>Route 1</li>
+        <li>Route 2</li>
+        </form> 
 
         <div ng-controller="stopwatchCtrl">
-        <button ui-sref="activityInProgress" class="button button-positive button-block button-large" ng-click="startTimer(); storeActivity()">Ready? Lets go!</button>
+        <button ui-sref="activityInProgress" class="button button-positive button-block button-large" ng-click="startTimer()">Ready? Lets go!</button>
         </div> 
 
 
 </br>
 
-        <a ui-sref="tabsController.dashboard" class="button button-assertive button-block button-large">Cancel</a>
+        <a ui-sref="tabsController.dashboard" class="button button-assertive button-block button-large">Cancel Activity</a>
     </ion-content>
 </ion-view>

@@ -44,7 +44,7 @@ angular.module('app.directives', [])
 
         mapOptions = {
             center: searchLatLng,
-            zoom: 17,
+            zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
             

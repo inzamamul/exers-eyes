@@ -38,47 +38,34 @@
 		    x.innerHTML = "Latitude: " + position.coords.latitude + 
 		    "<br>Longitude: " + position.coords.longitude;	
 		}
-		</script>
+	</script>
 
 		
 <!-- Div: Time elapsed of activity -->
 		
 		<div ng-controller="stopwatchCtrl" ng-init="startTimer()">
 
-		<h3 class="center">Time Elapsed: {{ timer }}</h3>
+		<h3 class="center">Time Elapsed: {{ activity.timer }}</h3>
 
-		<center><button ng-click="stopTimer()">stop time</button></center>
-	</br> 
-		</div>	
+		<center><button ng-click="stopTimer()">stop time</button></center> </br> 
+	
 
-	</br> 
+		</br> 
+
 <!-- Div: Map object-->
 
 	    <div activity-map ng-model="searchLocation" class="activity-map">
        
         </div>  
 
-<!-- Div: Results of activity 
-        <div> 
-	       	<ion-list ng-controller="activityCtrl">            
-	            <h4>Temp details</h4>
-	  
-	            <label class="item item-input" name="time-taken">
-	                <span class="input-label">Time Taken (mins)</span>
-					<input type="number" placeholder="Time taken (mins)" string-to-number ng-model="activity.time">   
-				</label>
+			<!-- Div: Results of activity --> 
 
-	            <label class="item item-input" name="cal-burn">
-	                <span class="input-label">Calories Burned (cal)</span>
-	        		<input type="number" placeholder="Calories Burned (cal)" string-to-number ng-model="activity.calburn">
-	            </label>
+			<div ng-controller="activityInProgressCtrl">	
+		        <button ui-sref="activityCompleted" class="button button-positive button-block " ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
 
-	        </ion-list>
-        </div> 
--->
-			<div ng-controller="stopwatchCtrl">
-	        <button ui-sref="activityCompleted" class="button button-positive button-block " ng-click="stopTimer(); getActivity(); storeActivity(); ">Finish Activity!</button>
-	    	</div>
+		    </div> 
+	    
+	    </div>
 
 	    </ion-content>
 
