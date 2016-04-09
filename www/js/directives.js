@@ -41,7 +41,6 @@ angular.module('app.directives', [])
       
       ngModel.$render = function(){
 
-        
 
         searchLatLng = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
 
@@ -69,6 +68,13 @@ angular.module('app.directives', [])
       };
       
       scope.$watch('myModel', function(value){
+
+        navigator.geolocation.getCurrentPosition(function(pos){
+
+          scope.myModel.latitudeCtrl = pos.coords.latitude
+          scope.myModel.longitudeCtrl = pos.coords.longitude
+        })
+
         var myPosition = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
         searchMarker.setPosition(myPosition);
       }, true);
