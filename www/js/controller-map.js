@@ -1,6 +1,18 @@
+/*
+
+    1. Get the users location and be able to repaint the map with the new location 
+    2. try this first with hard coded values
+    3. repaint every 2 secs 
+    4. put the refresh in the directive.js 
+
+
+The below code doesnt do anything!!
+*/ 
+
 angular.module('app.controllers').controller('mapCtrl', function($scope,  $cordovaGeolocation){
 
-	 $ionicPlatform.ready(function() {    
+
+     $ionicPlatform.ready(function() {    
  
         $ionicLoading.show({
             template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
@@ -34,5 +46,7 @@ angular.module('app.controllers').controller('mapCtrl', function($scope,  $cordo
             console.log(err);
         });
     })
+
+
 
 })

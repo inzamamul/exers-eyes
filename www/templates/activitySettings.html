@@ -3,14 +3,19 @@
         
 
         <center><h2>Set up your activity {{ fname }}!</h2></center>
-        
-        <form class="list">
-        <li>Route 1</li>
-        <li>Route 2</li>
-        </form> 
+</br> 
+    <ion-list>
+        <ion-radio ng-model="choice" ng-value="'A'">Route 1</ion-radio>
+        <ion-radio ng-model="choice" ng-value="'B'">Route 2</ion-radio>
+        <ion-radio ng-model="choice" ng-value="'C'">Route 3</ion-radio>
 
+    </ion-list>
+
+</br> 
         <div ng-controller="stopwatchCtrl">
-        <button ui-sref="activityInProgress" class="button button-positive button-block button-large" ng-click="startTimer()">Ready? Lets go!</button>
+        <!-- put this in button element below > ng-click="startTimer()"  -->
+        <button ui-sref="activityInProgress" class="button button-positive button-block button-large" >Ready? Lets go!</button>
+
         </div> 
 
 

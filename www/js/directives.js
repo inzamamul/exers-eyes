@@ -40,11 +40,14 @@ angular.module('app.directives', [])
       var searchLatLng;
       
       ngModel.$render = function(){
+
+        
+
         searchLatLng = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
 
         mapOptions = {
             center: searchLatLng,
-            zoom: 12,
+            zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
             

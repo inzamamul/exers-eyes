@@ -8,7 +8,7 @@
             <center>
                 <h2 ng-model="activity.distance">Distance travelled: {{ activity.distance  }} km</h2>
 </br> 
-                <h2 ng-controller="stopwatchCtrl">Time Taken: {{ activity.timer }} secs </h2>
+                <h2 ng-model="elapsedtime" >Time Taken: {{ elapsedtime }} secs </h2>
 </br> 
                 <h2 ng-model="activity.avgpace">Average Pace: {{ activity.avgpace  }} km/min</h2>
 </br> 
@@ -17,6 +17,9 @@
         </div>
 
     </br> 
-        <a ui-sref="tabsController.activityList" class="button button-assertive button-block  icon-right ion-ios-arrow-forward">Tap here to complete activty</a>
+         <a ui-sref="tabsController.activityList" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward">Share your activity on Facebook!</a>
+
+
+        <a ui-sref="tabsController.activityList" class="button button-assertive button-block button-large icon-right ion-ios-arrow-forward">Tap here to complete activty</a>
     </ion-content>
 </ion-view>

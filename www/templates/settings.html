@@ -4,8 +4,12 @@
     
     <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header" ng-controller="userCtrl" >
        
-    <ion-list>            
-            <h4>About You!</h4>
+    <ion-list> 
+
+            <h2 class="center">About You!</h2>
+
+            <button class="button button-positive button-block button-large">Connect your Facebook Account</button>
+</br> 
             
             <label class="item item-input" name="first-name">
                 <span class="input-label">First Name</span>
@@ -35,7 +39,10 @@
             </label>
         </ion-list>
 
-        <button class="button button-positive button-block icon-left ion-arrow-right-b" ng-click='storeUser()' >Save Details</button>
+    </br> 
+</br> 
+
+        <button class="button button-positive button-block button-large icon-left ion-arrow-right-b" ng-click='storeUser()' >Save Details</button>
 
 
     </ion-content>

@@ -16,7 +16,9 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
         };
 
         $scope.stopTimer = function() {
+          $scope.elapsedtime = $scope.activity.timer
           if (angular.isDefined(tElapsed)) {
+
             $interval.cancel(tElapsed);
             tElapsed = undefined;
           }

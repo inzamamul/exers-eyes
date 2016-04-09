@@ -1,44 +1,9 @@
 <ion-view title="Activity in Progress">
 
-	<style type="text/css">
-	#map_canvas { 
-		height: 560px; 
-		width: 100%  }
-	
-	#map_canvas img {
-		max-width: none;
-	}
-	
-	#map_canvas div {
-	    -webkit-transform: translate3d(0,0,0);
-	}
 
-	.activity-map{
-   	display:block;
-    height:400px;
-    width:100%;
-    margin-bottom:15px;
-	}
-	</style>
-
-	    <ion-content overflow-scroll="true" padding="true" class="has-header" >
+	<ion-content overflow-scroll="true" padding="true" class="has-header" >
 	       
-		<script>
-		var x = document.getElementById("demo");
 
-		function getLocation() {
-		    if (navigator.geoLocation) {
-		        navigator.geoLocation.getCurrentPosition(showPosition);
-		    } else { 
-		        x.innerHTML = "Geolocation is not supported by this browser.";
-		    }
-		}
-
-		function showPosition(position) {
-		    x.innerHTML = "Latitude: " + position.coords.latitude + 
-		    "<br>Longitude: " + position.coords.longitude;	
-		}
-	</script>
 
 		
 <!-- Div: Time elapsed of activity -->
@@ -58,15 +23,17 @@
        
         </div>  
 
-			<!-- Div: Results of activity --> 
+<!-- Div: Results of activity --> 
 
-			<div ng-controller="activityInProgressCtrl">	
-		        <button ui-sref="activityCompleted" class="button button-positive button-block " ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
+		<div ng-controller="activityInProgressCtrl">	
+		    <button ui-sref="activityCompleted" class="button button-positive button-block " ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
 
-		    </div> 
+		</div> 
 	    
 	    </div>
 
 	    </ion-content>
 
 </ion-view>
+
+
