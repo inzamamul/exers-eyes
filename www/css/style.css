@@ -12,6 +12,12 @@
 
 }
 
+.scroll {
+
+	height: = 100%;
+}
+
+
 /* CSS for displaying map in Activity in Progress view */
 #map_canvas { 
 		height: 560px; 
@@ -31,8 +37,4 @@
     width:100%;
     margin-bottom:15px;
 	}
-
-/*.scroll {
-
-	height: = 100%;
-}
+/* */

@@ -24,5 +24,11 @@ angular.module('app.services', [])
 
 .service('BlankService', [function(){
 
-}]);
+}])
 
+.service('UserService', [function(){
+
+// user service should go here 
+
+
+}]);

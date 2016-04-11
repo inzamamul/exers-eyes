@@ -5,12 +5,23 @@ angular.module('app.controllers').controller('activityInProgressCtrl', function(
  //                                                  [geolocationError],
  //    
  //                                              [geolocationOptions]);
+    
+$scope.searchLocation = {
+      
+      latitudeCtrl: 51.508590, 
+      longitudeCtrl:  -0.125434
+    }
+    
+navigator.geolocation.getCurrentPosition(function(pos){
+    
     $scope.searchLocation = {
       
-      latitudeCtrl: 51.523274, 
-      longitudeCtrl: -0.040426 
+      latitudeCtrl: pos.coords.latitude,
+ 
+      longitudeCtrl:  pos.coords.longitude
     }
 
+});
 
     //
     /* 

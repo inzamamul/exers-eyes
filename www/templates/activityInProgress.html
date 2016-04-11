@@ -1,39 +1,35 @@
 <ion-view title="Activity in Progress">
 
+	<ion-content  overflow-scroll="true" padding="true" class="has-header" >
 
-	<ion-content overflow-scroll="true" padding="true" class="has-header" >
-	       
-
-
+<!-- Time elapsed of activity -->
 		
-<!-- Div: Time elapsed of activity -->
-		
-		<!-- <div ng-controller="stopwatchCtrl" ng-init="startTimer()">  -->
+	<div ng-controller="stopwatchCtrl" ng-init="startTimer()">
 
-		<h3 class="center">Time Elapsed: {{ activity.timer }}</h3>
+	<h3 class="center">Time Elapsed: {{ activity.timer }}</h3>
 
-		<center><button ng-click="stopTimer()">stop time</button></center> </br> 
-		
-	
+	</br> 
 
-		</br> 
+<!-- Map object --> 
 
-<!-- Div: Map object-->
-
-	    <div activity-map ng-model="searchLocation" class="activity-map">
+	<div activity-map ng-model="searchLocation" class="activity-map">
        
-        </div>  
+    </div>															
 
-<!-- Div: Results of activity --> 
+<!-- Map2 object -->
 
-		<div ng-controller="activityInProgressCtrl">	
-		    <button ui-sref="activityCompleted" class="button button-positive button-block " ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
+	<div ng-controller="mapController" id="map" data-tap-disabled="true">
 
-		</div> 
+	</div>
+
+<!-- Results of activity --> 
+
+	<div ng-controller="activityInProgressCtrl" >	
+		<button ui-sref="activityCompleted" class="button button-positive button-block" ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
+
+	</div> 
 	    
-	    </div>
-
-	    </ion-content>
+	</ion-content>
 
 </ion-view>
 
