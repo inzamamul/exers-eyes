@@ -1,4 +1,7 @@
-angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $interval, $localstorage) {
+angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $interval, $cordovaVibration, $localstorage) {
+
+  // Vibrate 10ms 
+  //        $cordovaVibration.vibrate(10);
 
           var tElapsed
         
@@ -9,7 +12,7 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
       avgpace: ''
     };
 
-        $scope.activity.timer = 66;
+        $scope.activity.timer = 0;
 
         $scope.resetTimer = function() {
           $scope.activity.timer = 0;
@@ -26,6 +29,9 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
         
         $scope.startTimer = function() {
           // Don't start a new timer if we are already counting
+
+        
+
           if ( angular.isDefined(tElapsed) ) return;
 
           tElapsed = $interval(function() {

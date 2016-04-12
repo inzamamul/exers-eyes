@@ -7,7 +7,7 @@ angular.module('app.controllers').controller('activityInProgressCtrl', function(
  //                                              [geolocationOptions]);     
 
 $scope.searchLocation = {
-// Set search location as middle of London      
+// Set search location as middle of London (Charing X)    
       latitudeCtrl: 51.508590, 
       longitudeCtrl:  -0.125434
     }

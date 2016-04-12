@@ -5,7 +5,7 @@ angular.module('app.controllers').controller('mapController', function($scope){
     google.maps.event.addDomListener(window, "load", function() {
 
         // def centre point
-        var myLatLng = new google.maps.LatLng(37.300, -120.4833);
+        var myLatLng = new google.maps.LatLng(57.300, -120.4833);
 
         var mapOptions = {
             center: myLatLng,

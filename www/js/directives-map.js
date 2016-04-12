@@ -29,8 +29,12 @@ angular.module('app.directives', []).directive('activityMap',function(){
           };
             
         googleMap = new google.maps.Map(element[0],mapOptions);
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-  		var directionsService = new google.maps.DirectionsService;
+
+
+  		directionsDisplay.setMap(googleMap);
+  		directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+  	
 
 
         searchMarker = new google.maps.Marker({
@@ -61,6 +65,32 @@ angular.module('app.directives', []).directive('activityMap',function(){
         var myPosition = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
         searchMarker.setPosition(myPosition);
       }, true);
-    }      
-  }
+
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+  	var directionsService = new google.maps.DirectionsService;
+
+     //calculate route
+  	calculateRoute(directionsService, directionsDisplay);
+
+  	function calculateRoute(directionsService, directionsDisplay){
+
+  		var start = "51.543963, -0.032926"
+  		var end = "51.536289, -0.034578"
+
+  		directionsService.route({
+  			origin: start, 
+  			destination: end, 
+  			travelMode: google.maps.TravelMode.WALKING
+  		}, function(response, status) {
+	  			if (status === google.maps.DirectionsStatus.OK) {
+	  				directionsDisplay.setDirections(response);
+	  			}else {
+	  				console.log("directions service failed");
+	  				// change this later to ionic popup window
+	  			}
+  			
+  		});
+  	} // end calculateRoute
+    } // end link function      
+  } // end return
 })
