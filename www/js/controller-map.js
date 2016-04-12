@@ -1,3 +1,5 @@
+// does nothing below :(
+
 angular.module('app.controllers').controller('mapController', function($scope){
 
     google.maps.event.addDomListener(window, "load", function() {

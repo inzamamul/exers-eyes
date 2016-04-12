@@ -4,23 +4,19 @@ angular.module('app.controllers').controller('activityInProgressCtrl', function(
  // $scope.searchLocation = navigator.geolocation.watchPosition(geolocationSuccess,
  //                                                  [geolocationError],
  //    
- //                                              [geolocationOptions]);
-    
+ //                                              [geolocationOptions]);     
+
 $scope.searchLocation = {
-      
+// Set search location as middle of London      
       latitudeCtrl: 51.508590, 
       longitudeCtrl:  -0.125434
     }
     
-navigator.geolocation.getCurrentPosition(function(pos){
-    
-    $scope.searchLocation = {
-      
+navigator.geolocation.getCurrentPosition(function(pos){   
+    $scope.searchLocation = { 
       latitudeCtrl: pos.coords.latitude,
- 
       longitudeCtrl:  pos.coords.longitude
     }
-
 });
 
     //
@@ -32,6 +28,5 @@ every t seconds render the coordinates in google maps
 ~~ 'live' tracking of location
 
     */
-
 
 })

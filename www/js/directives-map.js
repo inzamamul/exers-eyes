@@ -29,12 +29,14 @@ angular.module('app.directives', []).directive('activityMap',function(){
           };
             
         googleMap = new google.maps.Map(element[0],mapOptions);
-        var markerimg = 'http://i.stack.imgur.com/orZ4x.png'
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+  		var directionsService = new google.maps.DirectionsService;
+
 
         searchMarker = new google.maps.Marker({
           position: searchLatLng,
           map: googleMap,
-          icon: markerimg,
+          icon: 'http://i.stack.imgur.com/orZ4x.png',
           draggable: false
         });
         
@@ -48,6 +50,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
       };
       
       scope.$watch('myModel', function(value){
+
 
         navigator.geolocation.getCurrentPosition(function(pos){
 
