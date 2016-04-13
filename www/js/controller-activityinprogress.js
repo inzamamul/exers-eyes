@@ -19,6 +19,7 @@ navigator.geolocation.getCurrentPosition(function(pos){
     }
 });
 
+
     //
     /* 
 

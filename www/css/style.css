@@ -3,6 +3,7 @@
 .center {
 
 	text-align: center;
+
 }
 
 .map {
@@ -17,6 +18,16 @@
 	height: = 100%;
 }
 
+#bolded {
+
+	font-size: 30px; 
+	font-weight: bold;
+}
+
+#ctrlTab {
+
+	font-size: 40px
+}
 
 /* CSS for displaying map in Activity in Progress view */
 #map_canvas { 

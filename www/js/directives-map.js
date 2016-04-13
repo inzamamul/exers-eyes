@@ -7,9 +7,11 @@ angular.module('app.directives', []).directive('activityMap',function(){
     restrict: 'EA',
     require: '?ngModel',
     scope:{
+    currStep: '=info', 
     myModel: '=ngModel'
     },
-    link: function(scope,element,attrs,ngModel){
+
+    link: function( scope,element,attrs,ngModel){
         
       var mapOptions;
       var googleMap;
@@ -33,9 +35,6 @@ angular.module('app.directives', []).directive('activityMap',function(){
 
   		directionsDisplay.setMap(googleMap);
   		directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-
-  	
-
 
         searchMarker = new google.maps.Marker({
           position: searchLatLng,
@@ -84,6 +83,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
   		}, function(response, status) {
 	  			if (status === google.maps.DirectionsStatus.OK) {
 	  				directionsDisplay.setDirections(response);
+	  				walkingSteps(response);
 	  			}else {
 	  				console.log("directions service failed");
 	  				// change this later to ionic popup window
@@ -91,6 +91,24 @@ angular.module('app.directives', []).directive('activityMap',function(){
   			
   		});
   	} // end calculateRoute
+
+	  	function walkingSteps(directionResult){
+
+	  		var route = directionResult.routes[0].legs[0];
+
+// arbitary looking for step3	  		
+	  		// currStep = route.steps[3].instructions;
+     //    $scope.currentStep = currStep; 
+     //    console.log(currStep)
+
+     //    scope.currentStep = currStep
+     
+      } // end walkingSteps 
+
     } // end link function      
   } // end return
 })
+
+//for looking at proximity of the location
+//LatLngBounds class
+

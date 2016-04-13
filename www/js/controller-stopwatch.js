@@ -1,7 +1,7 @@
 angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $interval, $cordovaVibration, $localstorage) {
 
-  // Vibrate 10ms 
-  //        $cordovaVibration.vibrate(10);
+ // Vibrate 10ms (won't work if using on desktop as desktop can't vibrate (obviously))
+   //      $cordovaVibration.vibrate(10);
 
           var tElapsed
         

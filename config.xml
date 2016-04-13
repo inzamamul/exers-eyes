@@ -2,10 +2,10 @@
 <widget id="com.ionicframework.exerseyes236766" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>exers-eyes</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Development Of A Mobile Application To Provide Assistance With Exercise To A Visually-Impaired User. 
     </description>
-  <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
+  <author email="inz.haque@me.com" href="http://qmul.ac.uk">
+        Inzamamul Haque
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -20,6 +20,12 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="true">
+
+        <string>Tracking Enabled Yo</string>
+
+</gap:config-file>
+
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>

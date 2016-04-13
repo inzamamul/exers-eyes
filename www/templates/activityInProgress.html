@@ -1,14 +1,15 @@
 <ion-view title="Activity in Progress">
 
-	<ion-content  overflow-scroll="true" padding="true" class="has-header" >
+<!-- to add in below tag:  overflow-scroll="true" -->
+	<ion-content  padding="true" class="has-header" >
 
 <!-- Time elapsed of activity -->
 		
 	<div ng-controller="stopwatchCtrl" ng-init="startTimer()">
 
 	<h3 class="center">Time Elapsed: {{ activity.timer }}</h3>
-
-	</br> 
+	<center><span id="bolded">Current Step: <span ng-bind-html="currentStep"></span></span></center>
+	</br>
 
 <!-- Map object --> 
 
@@ -23,7 +24,7 @@
 <!-- Results of activity --> 
 
 	<div ng-controller="activityInProgressCtrl" >	
-		<button ui-sref="activityCompleted" class="button button-positive button-block" ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
+		<button ui-sref="activityCompleted" class="button button-positive button-large button-block" ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
 
 	</div> 
 	    
