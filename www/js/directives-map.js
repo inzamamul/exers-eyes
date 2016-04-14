@@ -1,5 +1,4 @@
 // Google Maps Directive for directions
-
 angular.module('app.directives', []).directive('activityMap',function(){
 
 ////
@@ -7,19 +6,20 @@ angular.module('app.directives', []).directive('activityMap',function(){
     restrict: 'EA',
     require: '?ngModel',
     scope:{
-    currStep: '=info', 
-    myModel: '=ngModel'
+    myModel: '=ngModel',
+    isolatedAttributeFoo:'@attributeFoo',
+    isolatedBindingFoo:'=bindingFoo',
+    isolatedExpressionFoo:'&'
     },
 
     link: function( scope,element,attrs,ngModel){
-        
+      
       var mapOptions;
-      var googleMap;
+      var googleMap; 
       var searchMarker;
       var searchLatLng;
-      
-      ngModel.$render = function(){
 
+      ngModel.$render = function(){
 
         searchLatLng = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
 
@@ -31,7 +31,6 @@ angular.module('app.directives', []).directive('activityMap',function(){
           };
             
         googleMap = new google.maps.Map(element[0],mapOptions);
-
 
   		directionsDisplay.setMap(googleMap);
   		directionsDisplay.setPanel(document.getElementById('directionsPanel'));
@@ -54,7 +53,6 @@ angular.module('app.directives', []).directive('activityMap',function(){
       
       scope.$watch('myModel', function(value){
 
-
         navigator.geolocation.getCurrentPosition(function(pos){
 
           scope.myModel.latitudeCtrl = pos.coords.latitude
@@ -69,9 +67,9 @@ angular.module('app.directives', []).directive('activityMap',function(){
   	var directionsService = new google.maps.DirectionsService;
 
      //calculate route
-  	calculateRoute(directionsService, directionsDisplay);
+  	calculateRoute(directionsService, directionsDisplay, scope, ngModel);
 
-  	function calculateRoute(directionsService, directionsDisplay){
+  	function calculateRoute(directionsService, directionsDisplay, scope, ngModel){
 
   		var start = "51.543963, -0.032926"
   		var end = "51.536289, -0.034578"
@@ -83,7 +81,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
   		}, function(response, status) {
 	  			if (status === google.maps.DirectionsStatus.OK) {
 	  				directionsDisplay.setDirections(response);
-	  				walkingSteps(response);
+	  				walkingSteps(response, scope, ngModel);
 	  			}else {
 	  				console.log("directions service failed");
 	  				// change this later to ionic popup window
@@ -92,21 +90,22 @@ angular.module('app.directives', []).directive('activityMap',function(){
   		});
   	} // end calculateRoute
 
-	  	function walkingSteps(directionResult){
+	  	function walkingSteps(directionResult, scope, ngModel){
 
+        var currentstep; 
 	  		var route = directionResult.routes[0].legs[0];
 
 // arbitary looking for step3	  		
-	  		// currStep = route.steps[3].instructions;
-     //    $scope.currentStep = currStep; 
-     //    console.log(currStep)
-
-     //    scope.currentStep = currStep
+	  		currentStep = route.steps[3].instructions;
+        scope.currStep = currentStep
+        console.log(currentStep)
      
       } // end walkingSteps 
 
-    } // end link function      
-  } // end return
+      
+    } // end link function
+
+  } // end return of directive 
 })
 
 //for looking at proximity of the location

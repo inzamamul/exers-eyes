@@ -30,13 +30,31 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
         $scope.startTimer = function() {
           // Don't start a new timer if we are already counting
 
-        
-
           if ( angular.isDefined(tElapsed) ) return;
 
           tElapsed = $interval(function() {
             if ($scope.activity.timer >= 0) {
-              $scope.activity.timer = $scope.activity.timer + 1;
+              $scope.activity.timer = $scope.activity.timer + 100;
+
+              $scope.secs = humanizeDuration($scope.activity.timer, {units: ['s']})
+                if($scope.secs > 60){
+                  $scope.secs = 0
+                }else{
+                  $scope.secs = $scope.secs;
+                };
+
+              $scope.mins = humanizeDuration($scope.activity.timer, {units: ['m'], round: true})
+                if($scope.secs > 60){
+                  $scope.secs = 0
+                } else{
+                  $scope.secs = $scope.secs;
+                };
+              $scope.hours = humanizeDuration($scope.activity.timer, {units: ['h'], round: true})
+                if ($scope.hours > 60 ){
+                  $scope.hours = 0
+                }else{
+                  $scope.hours = $scope.hours;
+                };
 
             } else {
               $scope.stopTimer();
