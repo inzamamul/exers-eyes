@@ -1,26 +1,23 @@
 <ion-view title="Activity Settings">
-    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activityCtrl">
+    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activitySettingsCtrl">
         
-
-        <center><h2>Set up your activity {{ fname }}!</h2></center>
-</br> 
+    <center><h2>Set up your activity!</h2></center>
+    </br> 
+    
+    <div class="item item-divider">Available Routes in London</div>
     <ion-list>
-        <ion-radio ng-model="choice" ng-value="'A'">Mile End Park Loop</ion-radio>
-        <ion-radio ng-model="choice" ng-value="'B'">Victoria Park Loop</ion-radio>
-        <ion-radio ng-model="choice" ng-value="'C'">Stepney Green Loop</ion-radio>
-
+        <ion-radio name="routeChoice" ng-repeat="route in routeList" ng-value="route.name" ng-model="chroute" ng-change="routeChange(route)" ng-click="passRoute(route)">
+        
+        {{route.name}}
+        </ion-radio>
+   
     </ion-list>
-
-</br> 
-        <div ng-controller="stopwatchCtrl">
+    
+    <h4> Chosen Route: {{ chroute }} </h4> 
         <!-- put this in button element below > ng-click="startTimer()"  -->
-        <button ui-sref="activityInProgress" class="button button-positive button-block button-large" >Ready? Lets go!</button>
+        <button ui-sref="activityInProgress" class="button button-positive button-block button-large" ng-click=" prepareRoute()">Ready? Lets go!</button>
 
-        </div> 
+        <button ui-sref="tabsController.dashboard" class="button button-assertive button-block button-large">Cancel Activity</button>
 
-
-</br>
-
-        <a ui-sref="tabsController.dashboard" class="button button-assertive button-block button-large">Cancel Activity</a>
     </ion-content>
 </ion-view>
