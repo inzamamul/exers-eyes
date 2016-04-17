@@ -11,8 +11,11 @@ angular.module('app.controllers').controller('userCtrl', function($scope, $local
    		 	};
 
    	// Storing user details
-    $scope.storeUser = function() {
+    $scope.saveUser = function() {
 
+      console.log($scope.user.fname)
+
+      
     	if(typeof(Storage) != "undefined"){
 
     		// name >> Name 

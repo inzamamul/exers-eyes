@@ -5,7 +5,7 @@
 angular.module('app.controllers', [])
 
 // Dashboard Controller (main "homepage")
-.controller('dashboardCtrl', function($scope, $timeout, $rootScope, $localstorage) {
+.controller('dashboardCtrl', function($scope,  $rootScope, $localstorage) {
 
 	$scope.getUser = function() {
 

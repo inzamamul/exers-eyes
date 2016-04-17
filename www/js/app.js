@@ -23,6 +23,13 @@ angular.module('app', ['ionic','ngCordova', 'app.controllers', 'app.routes', 'ap
   });
 })
 
+.config(function (BackandProvider) {
+      BackandProvider.setAppName('exers-eyes');
+      BackandProvider.setAnonymousToken('a27230ec-7a03-447e-82ae-fbced58799ab'); // token is for anonymous login.
+      BackandProvider.setSignUpToken('169d4798-1982-4ea0-9b63-10e552fd3d4b');
+  })
+
+
 .run(function ($rootScope, $state, LoginService, Backand) {
 
     function unauthorized() {

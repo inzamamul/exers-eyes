@@ -17,9 +17,11 @@
         </div>
 
     </br> 
-         <a ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Share your activity</a>
 
+        <div ng-controller="socialCtrl"> 
+         <button ng-click="shareActivity()" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Share your activity</button>
+        </div> 
 
-        <a ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Tap here to complete activity</a>
+        <button ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Tap here to complete activity</button>
     </ion-content>
 </ion-view>

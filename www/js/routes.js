@@ -1,14 +1,12 @@
-angular.module('app.routes', ['backand'])
+angular.module('app.routes', [])
 
-.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
-  BackandProvider.setAppName('exers-eyes'); // change here to your app name
-  BackandProvider.setSignUpToken('169d4798-1982-4ea0-9b63-10e552fd3d4b'); //token that enable sign up. see http://docs.backand.com/en/latest/apidocs/security/index.html#sign-up
-  BackandProvider.setAnonymousToken('a27230ec-7a03-447e-82ae-fbced58799ab'); // token is for anonymous login. see http://docs.backand.com/en/latest/apidocs/security/index.html#anonymous-access
+  
 
   $stateProvider
 
@@ -100,6 +98,7 @@ angular.module('app.routes', ['backand'])
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'verificationCtrl'
+  //  controllerAs: 'login'
   })
 
   .state('signup', {

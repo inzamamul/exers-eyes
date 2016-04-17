@@ -1,5 +1,5 @@
 // Activity in progress (contains the business logic for when the user is busy with activity)   
-angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope, routeservice) {
+angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope, GeoLocService, routeservice) {
 
 
 /* 
@@ -62,16 +62,17 @@ $scope.searchLocation = {
     latitudeCtrl: 51.508590, 
     longitudeCtrl:  -0.125434,
 
-  };
+  }
     
   navigator.geolocation.getCurrentPosition(function(pos){   
-  console.log("successfully geolocated myself")    
       $scope.searchLocation = { 
         latitudeCtrl: pos.coords.latitude,
         longitudeCtrl:  pos.coords.longitude,
      
       }
-  });
+    console.log("successfully geolocated myself @" + $scope.searchLocation.latitudeCtrl)    
+
+  })
 
   function printChroute(){
 

@@ -1,38 +1,39 @@
 // Controller for Activity Completed (when the user has finished the activity)
-angular.module('app.controllers').controller('verificationCtrl', function(Backand, LoginService, $rootScope, $scope) {
- 
- var login = this;
+angular.module('app.controllers').controller('verificationCtrl', function($scope,  $state, $rootScope, Backand, LoginService) {
 
-        function signin() {
-        	console.log("attempt to login")
-            LoginService.signin(login.email, login.password)
+var temp_login = "meg@meg.com" 
+var temp_pass = "megmeg"
+
+        $scope.signin = function() {
+
+        	console.log("attempt to login" + temp_login + " " + temp_pass + " " + $scope.login_email)
+            LoginService.signin("meg@meg.com" , "megmeg" )
                 .then(function () {
-                    onLogin();
+                    $scope.onLogin();
+
+                    $state.go('tabsController.dashboard');
 
                 }, function (error) {
                     console.log(error)
                 })
         }
 
-        function onLogin(){
+        $scope.onLogin = function() {
             $rootScope.$broadcast('authorized');
-            $state.go('tab.dashboard');
+            $state.go('tabsController.dashboard');
             console.log("logged in successfully")
         }
 
-        function signout() {
+        $scope.signout = function() {
             LoginService.signout()
                 .then(function () {
                     //$state.go('tab.login');
                     $rootScope.$broadcast('logout');
-                    $state.go($state.current, {}, {reload: true});
+                    $state.go('login', {}, {reload: true});
                 })
 
         }
 
-    login.signin = signin;
-    login.signout = signout;
-    
 })
 	
 

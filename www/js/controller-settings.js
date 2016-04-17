@@ -35,17 +35,12 @@ angular.module('app.controllers').controller('settingsCtrl', function($scope, $w
 
    		 	}
 
- 	$scope.saveUser = function() {
+ 	$scope.saveUser1 = function() {
 
-		$localstorage.set('fname', $scope.user.fname);
-		$localstorage.set('lname', $scope.user.lname);
-		$localstorage.set('age', $scope.user.age);
-		$localstorage.set('weight', $scope.user.weight);
-		$localstorage.set('height', $scope.user.height);
-
+		
 		$scope.showPopup($scope.user.fname);
-		// console.log($localstorage.get('fname'));
-
+		 console.log($localstorage.get('fname'));
+     console.log($scope.user.fname)
  	};
 
 

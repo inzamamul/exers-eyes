@@ -4,7 +4,7 @@
     
     <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header" ng-controller="userCtrl" >
 
-    <ion-list> 
+        <ion-list> 
 
             <h2 class="center">About You!</h2></br>
 
@@ -12,36 +12,36 @@
             
             <label class="item item-input" name="first-name">
                 <span class="input-label">First Name</span>
-                <input type="text" placeholder="Your first Name" ng-model="user.fname">
+                <input type="text"  ng-model="user.fname">
             </label>
        
             <label class="item item-input" name="last-name">
                 <span class="input-label">Last Name</span>
-                <input type="text" placeholder="Your last name" ng-model="user.lname">
+                <input type="text"  ng-model="user.lname">
             </label>
             
             <label class="item item-input" name="age">
                 <span class="input-label">Birthdate</span>
-                <input type="date" placeholder="Your birthdate" string-to-number ng-model="user.age">
+                <input type="number" string-to-number ng-model="user.age">
             </label>
         
         
             <label class="item item-input" name="weight">
                 <span class="input-label">Weight (kg)</span> 
-                <input type="number" placeholder="Your weight" string-to-number ng-model="user.weight">
+                <input type="number" string-to-number ng-model="user.weight">
             </label>
     
         
             <label class="item item-input" name="height">
                 <span class="input-label">Height (cm)</span>
-                <input type="number" placeholder="Your height" string-to-number ng-model="user.height">
+                <input type="number" string-to-number ng-model="user.height">
             </label>
         </ion-list>
 
-    </br> 
+</br> 
 </br> 
 
-        <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-arrow-right-b button-full" ng-click='storeUser()' >Save Details</button>
+        <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-arrow-right-b button-full" ng-click='saveUser()' >Save Details</button>
         
         <button ui-sref="login" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-log-out button-full" ng-click="login.signout()" >Log Out</button>
 
