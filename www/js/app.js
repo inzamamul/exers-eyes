@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 
 // this is the "constructor" of the angular app - load dependencies of the app here 
-angular.module('app', ['ionic','ngCordova', 'ngStorage', 'lokijs', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+angular.module('app', ['ionic','ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage', 'lokijs', 'backand'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,7 +23,30 @@ angular.module('app', ['ionic','ngCordova', 'ngStorage', 'lokijs', 'app.controll
   });
 })
 
+.run(function ($rootScope, $state, LoginService, Backand) {
 
+    function unauthorized() {
+        console.log("user is unauthorized, sending to login");
+        $state.go('login');
+    }
+    function signout() {
+        LoginService.signout();
+    }
+    $rootScope.$on('unauthorized', function () {
+        unauthorized();
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        if (toState.name == 'login') {
+            signout();
+        }
+        else if (toState.name != 'login' && Backand.getToken() === undefined) {
+            unauthorized();
+        }
+    });
+})
+
+ 
 
 
 

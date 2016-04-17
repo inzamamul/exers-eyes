@@ -11,7 +11,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
     chroute: '='
     },
 
-    link: function( scope,element,attrs,ngModel){
+    link: function( scope,element,attrs,ngModel, rootScope){
       
       var mapOptions;
       var googleMap; 
@@ -26,19 +26,14 @@ angular.module('app.directives', []).directive('activityMap',function(){
         //add any function calls here
       })
 
-      //a listener 
-      scope.$watch('chroute', function(chroute){
-        console.log("chroute: " + chroute);
-        //add any function calls here
-      })
-
       ngModel.$render = function(){
 
         searchLatLng = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
+//  console.log("chroute in render: " + scope.myModel.routename);
 
         mapOptions = {
             center: searchLatLng,
-            zoom: 16,
+            zoom: 13,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             draggable: false
           };
@@ -72,6 +67,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
           scope.myModel.longitudeCtrl = pos.coords.longitude
         })
 
+        console.log("mylat is: " + scope.myModel.latitudeCtrl + scope.myModel.longitudeCtrl  )
         var myPosition = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
         searchMarker.setPosition(myPosition);
       }, true);
@@ -90,14 +86,14 @@ angular.module('app.directives', []).directive('activityMap',function(){
   		start = scope.routestart
       }else{
       console.log("scope routestart is null")
-      start = "51.543963, -0.032926"
+      start = "51.524076, -0.037211"
       }
 
   		if(scope.routeend!= null){
       end = scope.routeend
       }else{
       console.log("scope routeend is null")
-      end = "51.518631, -0.035189"
+      end = "51.522921, -0.036149"
       }
 
   		directionsService.route({
