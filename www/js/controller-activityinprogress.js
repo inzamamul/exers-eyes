@@ -1,7 +1,6 @@
 // Activity in progress (contains the business logic for when the user is busy with activity)   
 angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope, $cordovaGeolocation, GeoLocService, routeservice) {
 
-
 /* 
 
 Algorithm for letting the user know they are going off path:

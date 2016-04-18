@@ -96,13 +96,16 @@ angular.module('app.directives', []).directive('activityMap',function(){
       end = "51.522921, -0.036149"
       }
 
+      var rboxer = new RouteBoxer(); 
+
   		directionsService.route({
   			origin: start, 
   			destination: end,
   			travelMode: google.maps.TravelMode.WALKING
   		}, function(response, status) {
 	  			if (status === google.maps.DirectionsStatus.OK) {
-	  				directionsDisplay.setDirections(response);
+	  				
+            directionsDisplay.setDirections(response);
 	  				walkingSteps(response, scope, ngModel);
 	  			}else {
 	  				console.log("directions service failed");

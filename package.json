@@ -15,7 +15,8 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-x-socialsharing"
+    "cordova-plugin-x-socialsharing",
+    "cordova-background-geolocation-lt"
   ],
   "cordovaPlatforms": [
     "ios",
