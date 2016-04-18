@@ -27,7 +27,7 @@ angular.module('app.services', [])
 }])
 
 .service('GeoLocService', [function($scope){
-// ??? 
+
   // navigator.geolocation.getCurrentPosition(function(pos){   
   // console.log("service: successfully geolocated myself")    
   //     $scope.searchLocation = { 

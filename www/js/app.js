@@ -21,6 +21,8 @@ angular.module('app', ['ionic','ngCordova', 'app.controllers', 'app.routes', 'ap
       StatusBar.styleDefault();
     }
   });
+
+
 })
 
 .config(function (BackandProvider) {

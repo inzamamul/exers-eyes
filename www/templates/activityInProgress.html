@@ -9,8 +9,10 @@
 	<!-- <div ng-controller="stopwatchCtrl" ng-init="startTimer()"> -->
 
 	<h3 class="center">Time Elapsed: {{hours}}: {{mins}}: {{ secs }} </h3>
+
+<!-- Current step for the user to take  -->
 	<center><span id="bolded">Current Step: <span ng-bind-html="currStep"></span></span></center>
-	<input type="text" ng-model="lat"></input> 
+	<input type="text" ng-model="lat">lat input</input> 
 
 	<p>route: {{ routeservice.router }} </p>
 	<!-- <input type="text" ng-model="chroute"></input> -->

@@ -1,28 +1,41 @@
-// does nothing below :(
+// cordova geoloc from cordova docs
 
-angular.module('app.controllers').controller('mapController', function($scope){
+angular.module('app.controllers').controller('mapController', function($scope, $cordovaGeolocation){
 
-    google.maps.event.addDomListener(window, "load", function() {
-
-        // def centre point
-        var myLatLng = new google.maps.LatLng(57.300, -120.4833);
-
-        var mapOptions = {
-            center: myLatLng,
-            zoom: 16,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-
-        };
-
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-        navigator.geolocation.getCurrentPosition(function(pos){
-            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-        });
-
-        $scope.map = map;
-
-  
+ var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+        $scope.lat  = position.coords.latitude
+        $scope.long = position.coords.longitude
+    }, function(err) {
+      // error
     });
 
+
+  var watchOptions = {
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      // error
+    },
+    function(position) {
+      $scope.lat  = position.coords.latitude
+      $scope.long = position.coords.longitude
+  });
+
+
+  watch.clearWatch();
+  // OR
+  $cordovaGeolocation.clearWatch(watch)
+    .then(function(result) {
+      // success
+      }, function (error) {
+      // error
+    });
 });

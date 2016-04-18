@@ -1,5 +1,5 @@
 // Activity in progress (contains the business logic for when the user is busy with activity)   
-angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope, GeoLocService, routeservice) {
+angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope, $cordovaGeolocation, GeoLocService, routeservice) {
 
 
 /* 
@@ -56,37 +56,45 @@ $scope.routeList = [
 // Above taken from controller-activity settings 
 
 $scope.currStep = "step placeholder"
+//
 
+ var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+        $scope.lat  = position.coords.latitude
+        $scope.long = position.coords.longitude
+    }, function(err) {
+      // error
+    });
+
+
+  var watchOptions = {
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      // error
+    },
+    function(position) {
+      $scope.lat  = position.coords.latitude
+      $scope.long = position.coords.longitude
+  });
+
+
+  watch.clearWatch();
+
+////
 $scope.searchLocation = {
 // Set search location as middle of London (Charing X)    
-    latitudeCtrl: 51.508590, 
-    longitudeCtrl:  -0.125434,
+    latitudeCtrl: $scope.lat, 
+    longitudeCtrl: $scope.long,
 
   }
-    
-  navigator.geolocation.getCurrentPosition(function(pos){   
-      $scope.searchLocation = { 
-        latitudeCtrl: pos.coords.latitude,
-        longitudeCtrl:  pos.coords.longitude,
-     
-      }
-    console.log("successfully geolocated myself @" + $scope.searchLocation.latitudeCtrl)    
 
-  })
-
-  function printChroute(){
-
-  console.log(chroute)
-  }
-
-    //
-    /* 
-
-find coordinates and store in array
-every t seconds render the coordinates in google maps
-
-~~ 'live' tracking of location
-
-    */
 
 })

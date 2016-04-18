@@ -11,7 +11,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
     chroute: '='
     },
 
-    link: function( scope,element,attrs,ngModel, rootScope){
+    link: function( scope,element,attrs,ngModel, rootScope, cordovaGeolocation){
       
       var mapOptions;
       var googleMap; 
@@ -22,15 +22,14 @@ angular.module('app.directives', []).directive('activityMap',function(){
       
       //a listener 
       scope.$watch('lat', function(lat){
-        console.log("lat: " + lat);
+      console.log("lat: " + lat);
         //add any function calls here
       })
 
       ngModel.$render = function(){
 
         searchLatLng = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
-//  console.log("chroute in render: " + scope.myModel.routename);
-
+        
         mapOptions = {
             center: searchLatLng,
             zoom: 13,
@@ -57,7 +56,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
           });
         }.bind(this));
         
-      };
+      }; // end of render
       
       scope.$watch('myModel', function(value){
 
@@ -67,7 +66,8 @@ angular.module('app.directives', []).directive('activityMap',function(){
           scope.myModel.longitudeCtrl = pos.coords.longitude
         })
 
-        console.log("mylat is: " + scope.myModel.latitudeCtrl + scope.myModel.longitudeCtrl  )
+        // still in the watch
+        console.log("mylat has changed! " + scope.myModel.latitudeCtrl + scope.myModel.longitudeCtrl  )
         var myPosition = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
         searchMarker.setPosition(myPosition);
       }, true);
@@ -117,7 +117,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
 	  		var route = directionResult.routes[0].legs[0];
 
 // arbitary looking for a single step in route[] >> will need to change so it follows users geoLoc   		
-	  		currentStep = route.steps[0].instructions;
+	  		currentStep = route.steps[1].instructions;
         scope.currStep = currentStep
         console.log(currentStep)
      
