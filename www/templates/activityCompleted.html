@@ -6,13 +6,16 @@
             </center>
 </br> 
             <center>
-                <h2 ng-model="activity.distance">Distance travelled: {{ activity.distance  }} km</h2>
+            <div ng-controller="MapController">
+                <h2>Distance travelled: {{ routedistance }}km</h2>
+         
 </br> 
-                <h2 ng-model="elapsedtime" >Time Taken: {{ elapsedtime }} secs </h2>
+                <h2 ng-model="elapsedtime" >Time Taken: {{ timetaken }} min </h2>
 </br> 
-                <h2 ng-model="activity.avgpace">Average Pace: {{ activity.avgpace  }} km/min</h2>
+                <h2 ng-model="activity.avgpace">Average Pace: {{ routedistance / timetaken }} km/min </h2>
 </br> 
-                <h2 ng-model="activity.calburn">Calories Burned: {{ activity.calburn  }} calories</h2>
+                <h2 ng-model="activity.calburn">Calories Burned: {{ cb }} calories</h2>
+            </div>
           </center>
         </div>
 

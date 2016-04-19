@@ -2,40 +2,43 @@
 <ion-view title="Activity in Progress">
 
 <!-- to add in below tag:  overflow-scroll="true" -->
-	<ion-content  padding="true" class="has-header" ng-controller="activityInProgressCtrl">
+
+
 
 <!-- Time elapsed of activity -->
 
 	<!--  uncomment the below at production-->
 	<!-- <div ng-controller="stopwatchCtrl" ng-init="startTimer()"> -->
 
-	<h3 class="center">Time Elapsed: {{hours}}: {{mins}}: {{ secs }} </h3>
-
 <!-- Current step for the user to take  -->
-	<center><span id="bolded">Current Step: <span ng-bind-html="currStep"></span></span></center>
+<!-- 	<center><span id="bolded">Current Step: <span ng-bind-html="currStep"></span></span></center>
 	<input type="text" ng-model="lat">lat input</input> 
 
 	<p>route: {{ routeservice.router }} </p>
-	<!-- <input type="text" ng-model="chroute"></input> -->
-
-	</br>
+	<input type="text" ng-model="chroute"></input> -->
 
 <!-- Map object --> 
 	
 		<!-- Getting the ActivityMap directive to be displayed in view -->
-		 <div activity-map="" rootLat="routeLat" chroute="chroute" lat="lat" ng-model="activity" class="activity-map"></div> 
+		 <!-- <div activity-map="" rootLat="routeLat" chroute="chroute" lat="lat" ng-model="activity" class="activity-map"></div>  -->
+	
+<ion-content padding="true" ng-controller="MapController">
+
+	<h3 class="center">Time Elapsed: {{hours}}: {{mins}}: {{ secs }} </h3>
 		
 
-<!-- Directions Panel-->
+            <h3> This is the lat {{ latt }} </h3>
+            <h3> This is the long {{ longg }}</h3> 
 
-	<div id="directionsPanel"></div>
+            <p>Am i near away from a point? {{isnear}} at {{ delta  }}</p>
+            <h4> {{currStep}}</h4>
+            <h4>Distance covered in route: {{ routedistance }}m</h4>
+            <div id="map"></div>
+            <div id="directionsPanel"></div>
 
-<!-- Results of activity --> 
-
-		<button ui-sref="activityCompleted" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-large button-block button-full" ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
-
-	</div> 
-	    
+            <button ui-sref="activityCompleted" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-large button-block button-full" ng-click="stopTimer(); storeActivity(); getActivity();  ">Finish Activity!</button>
+        </ion-content>
+	
 	</ion-content>
 
 </ion-view>

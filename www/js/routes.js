@@ -55,7 +55,7 @@ angular.module('app.routes', [])
   .state('activityInProgress', {
     url: '/activity-in-progress',
     templateUrl: 'templates/activityInProgress.html',
-    controller: 'activityInProgressCtrl'
+    controller: 'MapController'
   })
 
   .state('tabsController.activity1Details', {

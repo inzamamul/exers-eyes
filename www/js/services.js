@@ -26,24 +26,6 @@ angular.module('app.services', [])
 
 }])
 
-.service('GeoLocService', [function($scope){
-
-  // navigator.geolocation.getCurrentPosition(function(pos){   
-  // console.log("service: successfully geolocated myself")    
-  //     $scope.searchLocation = { 
-  //       latitudeCtrl: pos.coords.latitude,
-  //       longitudeCtrl:  pos.coords.longitude,
-     
-  //     }
-  // }) 
-
-}])
-
-.service('routeservice', [function(){
-
-  this.router = "bbc";
-
-}])
 
 
 // Back& Backend as a Service (BaaS) 

@@ -16,7 +16,10 @@
   },
   "cordovaPlugins": [
     "cordova-plugin-x-socialsharing",
-    "cordova-background-geolocation-lt"
+    "cordova-background-geolocation-lt",
+    "cordova-plugin-geolocation@0.3.0",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-whitelist"
   ],
   "cordovaPlatforms": [
     "ios",

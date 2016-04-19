@@ -1,4 +1,15 @@
 /* Custom CSS to complement Ionic css */
+#map {
+   	display: block;
+    height: 400px;
+    width: 100%;
+    margin-bottom: 15px;
+	}
+}
+
+.scroll {
+    height: 100%;
+}
 
 .center {
 
@@ -6,17 +17,6 @@
 
 }
 
-.map {
-
-	height: 100%;
-	width: 100%;
-
-}
-
-.scroll {
-
-	height: = 100%;
-}
 
 #bolded {
 
@@ -28,8 +28,8 @@
 
 	font-size: 40px
 }
-
-/* CSS for displaying map in Activity in Progress view */
+/* 
+CSS for displaying map in Activity in Progress view 
 #map_canvas { 
 		height: 560px; 
 		width: 100%  }
@@ -48,4 +48,6 @@
     width:100%;
     margin-bottom:15px;
 	}
-/* */
+*/
+
+

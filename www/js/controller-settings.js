@@ -1,5 +1,5 @@
 // Settings Controller (contains the settings of the user details such as name height etc)   
-angular.module('app.controllers').controller('settingsCtrl', function($scope, $window, $location, $rootScope, $localstorage, $ionicPopup, $timeout) {
+angular.module('app.controllers').controller('settingsCtrl', function($scope, $window, $rootScope, $localstorage, $ionicPopup, $timeout) {
 
    		 	$rootScope.user = {
 
