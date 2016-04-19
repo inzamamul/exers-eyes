@@ -1,4 +1,6 @@
 // Google Maps Directive for directions
+// adapted from demo available via http://jsfiddle.net/tgassmann/A5WLb/
+
 angular.module('app.directives', []).directive('activityMap',function(){
 
 ////
@@ -8,26 +10,32 @@ angular.module('app.directives', []).directive('activityMap',function(){
     scope:{
     myModel: '=ngModel',
     lat: '=', //twowaybinding
-    chroute: '='
+    chroute: '=',
+    rootLat: '='
     },
 
-    link: function( scope,element,attrs,ngModel, rootScope, cordovaGeolocation){
+    link: function( scope,element,attrs,ngModel, rootScope){
       
       var mapOptions;
       var googleMap; 
       var searchMarker;
       var searchLatLng;
+      var lat1;
 
       console.log(scope);
       
       //a listener 
       scope.$watch('lat', function(lat){
-      console.log("lat: " + lat);
+      console.log("lat in listener: " + lat);
+      
+      scope.myModel.latitudeCtrl = lat
         //add any function calls here
-      })
+      }) // end watch
 
       ngModel.$render = function(){
 
+        console.log("test log" + scope.myModel.latitudeCtrl)
+       // console.log("rootScopeLat: " + rootScope.rootLat)
         searchLatLng = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
         
         mapOptions = {
@@ -37,7 +45,7 @@ angular.module('app.directives', []).directive('activityMap',function(){
             draggable: false
           };
             
-        googleMap = new google.maps.Map(element[0],mapOptions);
+      googleMap = new google.maps.Map(element[0],mapOptions);
 
   		directionsDisplay.setMap(googleMap);
   		directionsDisplay.setPanel(document.getElementById('directionsPanel'));
@@ -45,32 +53,26 @@ angular.module('app.directives', []).directive('activityMap',function(){
         searchMarker = new google.maps.Marker({
           position: searchLatLng,
           map: googleMap,
-          icon: 'http://i.stack.imgur.com/orZ4x.png',
+          // icon: '/img/marker.png',
           draggable: false
         });
         
-        google.maps.event.addListener(searchMarker, 'dragend', function(){
-          scope.$apply(function(){
-            scope.myModel.latitudeCtrl = searchMarker.getPosition().lat();
-            scope.myModel.longitudeCtrl = searchMarker.getPosition().lng();
-          });
-        }.bind(this));
         
       }; // end of render
-      
-      scope.$watch('myModel', function(value){
+//      
+//      // scope.$watch('myModel', function(value){
 
-        navigator.geolocation.getCurrentPosition(function(pos){
+      //   navigator.geolocation.getCurrentPosition(function(pos){
 
-          scope.myModel.latitudeCtrl = pos.coords.latitude
-          scope.myModel.longitudeCtrl = pos.coords.longitude
-        })
+      //     scope.myModel.latitudeCtrl = pos.coords.latitude
+      //     scope.myModel.longitudeCtrl = pos.coords.longitude
+      //   })
 
-        // still in the watch
-        console.log("mylat has changed! " + scope.myModel.latitudeCtrl + scope.myModel.longitudeCtrl  )
-        var myPosition = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
-        searchMarker.setPosition(myPosition);
-      }, true);
+      //   // still in the watch
+      //   console.log("mylat has changed! " + scope.myModel.latitudeCtrl + scope.myModel.longitudeCtrl  )
+      //   var myPosition = new google.maps.LatLng(scope.myModel.latitudeCtrl, scope.myModel.longitudeCtrl);
+      //   searchMarker.setPosition(myPosition);
+      // }, true);
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
   	var directionsService = new google.maps.DirectionsService;
@@ -95,8 +97,6 @@ angular.module('app.directives', []).directive('activityMap',function(){
       console.log("scope routeend is null")
       end = "51.522921, -0.036149"
       }
-
-      var rboxer = new RouteBoxer(); 
 
   		directionsService.route({
   			origin: start, 

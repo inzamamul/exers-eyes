@@ -7,6 +7,7 @@ angular.module('app.controllers', [])
 // Dashboard Controller (main "homepage")
 .controller('dashboardCtrl', function($scope,  $rootScope, $localstorage, $cordovaVibration) {
 
+	
  navigator.geolocation.getCurrentPosition(function(pos){   
       $scope.searchLocation = { 
         latitudeCtrl: pos.coords.latitude,
@@ -14,14 +15,8 @@ angular.module('app.controllers', [])
      
       }
     console.log("@dash successfully geolocated myself @" + $scope.searchLocation.latitudeCtrl)    
-
+    $rootScope.rootLat = $scope.searchLocation.latitudeCtrl
   })
-	
-
- 	$scope.vibrate = function() {
-
- 		$cordovaVibration.vibrate(100);
- 	}
 
 	$scope.getUser = function() {
 

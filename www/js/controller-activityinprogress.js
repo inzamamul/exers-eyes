@@ -1,6 +1,7 @@
 // Activity in progress (contains the business logic for when the user is busy with activity)   
 angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope, $cordovaGeolocation, GeoLocService, routeservice) {
 
+
 /* 
 
 Algorithm for letting the user know they are going off path:
@@ -9,6 +10,10 @@ if geolocation(user) is in routeboxer then ok
 else user needs to go back to route (use ngcordova vibrate )
 
 */
+
+$scope.activity = {} 
+$scope.activity.routestart = ""
+$scope.activity.routeend = ""
 
 $scope.routeList = [
   {   name: "Mile End Park Loop",
@@ -44,11 +49,11 @@ $scope.routeList = [
 
   $scope.routeChange = function(route, routeservice){   
     
-    $scope.chroute = route.name;
+    $scope.activity.chroute = route.name;
     console.log("passed: " + $scope.chroute);
 
-    $scope.chroutestart = route.startLoc;
-    $scope.chrouteend = route.endLoc;
+    $scope.activity.routestart = route.startLoc;
+    $scope.activity.routeend = route.endLoc;
   };
 
 
@@ -61,8 +66,8 @@ $scope.currStep = "step placeholder"
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
     .then(function (position) {
-        $scope.lat  = position.coords.latitude
-        $scope.long = position.coords.longitude
+        $scope.activity.lat  = position.coords.latitude
+        $scope.activity.long = position.coords.longitude
     }, function(err) {
       // error
     });
@@ -80,15 +85,15 @@ $scope.currStep = "step placeholder"
       // error
     },
     function(position) {
-      $scope.lat  = position.coords.latitude
-      $scope.long = position.coords.longitude
+      $scope.activity.lat  = position.coords.latitude
+      $scope.activity.long = position.coords.longitude
   });
 
 
   watch.clearWatch();
 
 ////
-$scope.searchLocation = {
+$scope.activity.searchLocation = {
 // Set search location as middle of London (Charing X)    
     latitudeCtrl: $scope.lat, 
     longitudeCtrl: $scope.long,

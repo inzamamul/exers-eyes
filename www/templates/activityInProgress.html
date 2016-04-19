@@ -1,3 +1,4 @@
+
 <ion-view title="Activity in Progress">
 
 <!-- to add in below tag:  overflow-scroll="true" -->
@@ -22,8 +23,9 @@
 <!-- Map object --> 
 	
 		<!-- Getting the ActivityMap directive to be displayed in view -->
-		<div activity-map="" chroute="chroute" lat="lat" ng-model="searchLocation" class="activity-map"></div>
-						
+		 <div activity-map="" rootLat="routeLat" chroute="chroute" lat="lat" ng-model="activity" class="activity-map"></div> 
+		
+
 <!-- Directions Panel-->
 
 	<div id="directionsPanel"></div>
