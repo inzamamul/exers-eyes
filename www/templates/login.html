@@ -1,4 +1,4 @@
-<ion-view title="Login" ng-controller="verificationCtrl">
+<ion-view title="Login">
     <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
     
     <div style="text-align:center; padding: 60px;">
@@ -21,14 +21,12 @@
                 <input ng-model="login_pass" type="password" placeholder="Your password" >
             </label>    
         
-        <div> {{ login_email }}</div> 
-        
         </ion-list>
 
     <div class="spacer" style="width: 300px; height: 25px;"></div>
 
             <div style="margin-right:-20px;">
-                <button ng-click="signin(a, b)" id="loginid" style="left:-10px;font-weight:600;color:#FFFFFF;" class="button button-positive button-large icon-left ion-log-in button-full">Log in</a>
+                <button id="loginid" ng-click="login(login_email, login_pass)" style="left:-10px;font-weight:600;color:#FFFFFF;" class="button button-positive button-large icon-left ion-log-in button-full">Log in</a>
             </div>
             
     <div class="spacer" style="width: 300px; height: 10px;"></div>

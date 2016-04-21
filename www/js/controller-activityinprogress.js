@@ -1,16 +1,6 @@
 // Activity in progress (contains the business logic for when the user is busy with activity)   
 angular.module('app.controllers').controller('activityInProgressCtrl', function($rootScope, $scope) {
 
-
-/* 
-
-Algorithm for letting the user know they are going off path:
-
-if geolocation(user) is in routeboxer then ok
-else user needs to go back to route (use ngcordova vibrate )
-
-*/
-
 $scope.routeList = [
   {   name: "Mile End Park Loop",
     startLoc: "51.543963, -0.032926", 

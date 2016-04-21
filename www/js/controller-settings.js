@@ -1,5 +1,5 @@
 // Settings Controller (contains the settings of the user details such as name height etc)   
-angular.module('app.controllers').controller('settingsCtrl', function($scope, $window, $rootScope, $localstorage, $ionicPopup, $timeout) {
+angular.module('app.controllers').controller('settingsCtrl', function($scope, $rootScope, $localstorage, $ionicPopup) {
 
    		 	$rootScope.user = {
 
@@ -35,24 +35,5 @@ angular.module('app.controllers').controller('settingsCtrl', function($scope, $w
 
    		 	}
 
- 	$scope.saveUser1 = function() {
 
-		
-		$scope.showPopup($scope.user.fname);
-		 console.log($localstorage.get('fname'));
-     console.log($scope.user.fname)
- 	};
-
-
-  	// Triggered on a button click, or some other target
-  $scope.showPopup = function() {
-    	var alertPopup = $ionicPopup.alert({
-    	title: 'Details saved',
-      	template: '<p class="center">User details saved.</p>'
-    	});
-    	alertPopup.then(function(res) {
-      	//console.log('cons log details saved');
-    	});
-  	};
-
-}) // end Settings Controller
+}) // End Settings Controller

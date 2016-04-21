@@ -1,16 +1,13 @@
-angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $interval, $cordovaVibration, $localstorage) {
+angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $interval, $localstorage, $rootScope, $stateParams ) {
 
- // Vibrate 10ms (won't work if using on desktop as desktop can't vibrate (obviously))
-   //      $cordovaVibration.vibrate(10);
-
-          var tElapsed
+        var tElapsed
         
         $scope.activity = {
-    distance: '0',
-      timer: '',
-      calburn: '',
-      avgpace: ''
-    };
+          distance: '0',
+          timer: '',
+          calburn: '',
+          avgpace: ''
+        };
 
         $scope.activity.timer = 0;
 
@@ -19,7 +16,11 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
         };
 
         $scope.stopTimer = function() {
-          $scope.elapsedtime = $scope.activity.timer
+
+        console.log("TIMER STOPPED: " + $scope.secs)
+          $rootScope.elapsedtime = $scope.secs;
+
+        console.log("Timer: " + $rootScope.elapsedtime)
           if (angular.isDefined(tElapsed)) {
 
             $interval.cancel(tElapsed);
@@ -41,6 +42,7 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
                   $scope.secs = 0
                 }else{
                   $scope.secs = $scope.secs;
+
                 };
 
               $scope.mins = humanizeDuration($scope.activity.timer, {units: ['m'], round: true})
@@ -62,4 +64,4 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
           }, 100);
         };
 
-})
+}) // END STOPWATCHCONTROLLER 

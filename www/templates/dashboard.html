@@ -10,12 +10,11 @@
     </div> 
     </br> 
 
-         <h3 class="center">You have completed {{ totalkm }}km so far! Keep it up!</h4>
+       	<h2 class="center" ng-model="getUser">Welcome back {{ fname }}!</h3>
+            
     </br> 
-       	<h2 class="center" ng-model="getUser">Welcome back {{ user.fname }}!</h3>
-        <button ui-sref="activitySettings" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full">Lets Begin!</button>
 
-        <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" ng-click="vibrate()">vibrate test</button>
+        <button ui-sref="activitySettings" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full">Lets Begin!</button>
     
     </ion-content>
 </ion-view>

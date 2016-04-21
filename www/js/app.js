@@ -1,4 +1,3 @@
-// Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
@@ -7,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 
 // this is the "constructor" of the angular app - load dependencies of the app here 
-angular.module('app', ['ionic','ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage', 'lokijs', 'backand'])
+angular.module('app', ['ionic','firebase', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage', 'lokijs'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,39 +19,10 @@ angular.module('app', ['ionic','ngCordova', 'app.controllers', 'app.routes', 'ap
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    
+    //init firebase var
   });
 
-
-})
-
-.config(function (BackandProvider) {
-      BackandProvider.setAppName('exers-eyes');
-      BackandProvider.setAnonymousToken('a27230ec-7a03-447e-82ae-fbced58799ab'); // token is for anonymous login.
-      BackandProvider.setSignUpToken('169d4798-1982-4ea0-9b63-10e552fd3d4b');
-  })
-
-
-.run(function ($rootScope, $state, LoginService, Backand) {
-
-    function unauthorized() {
-        console.log("user is unauthorized, sending to login");
-        $state.go('login');
-    }
-    function signout() {
-        LoginService.signout();
-    }
-    $rootScope.$on('unauthorized', function () {
-        unauthorized();
-    });
-
-    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-        if (toState.name == 'login') {
-            signout();
-        }
-        else if (toState.name != 'login' && Backand.getToken() === undefined) {
-            unauthorized();
-        }
-    });
 })
 
  

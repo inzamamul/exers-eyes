@@ -1,15 +1,57 @@
 <ion-view title="Activity List">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        
-        <div ng-controller="activityListCtrl"> 
-	        <ion-list>
-	            <ion-item ui-sref="tabsController.activity1Details" ng-repeat="activity in activities"> 
-	            {{ activity.date }} : {{ activity.distance}}km : {{ activity.calories }}Kcal burned!
-	        	</ion-item>
-	            <!-- <ion-item ui-sref="tabsController.activity2Details">Activity 2 Date; Distance; Time; Calories</ion-item>
-	            <ion-item ui-sref="tabsController.activity3Details">Activity 3 Date; Distance; Time; Calories</ion-item> -->
-	        </ion-list>
-    	</div> 
+	    <h3>List of previous activities</h3>
+	<div ng-controller="verificationCtrl" ng-init="profile()">
+		        <div> 
+			        <div ng-repeat="activity in profile.activities" class ="item">
+			        	{{ activity.distance }}
+			        </div> 
+		    	</div> 
 
+
+
+	    <h3> add new activity </h3>     
+	    <ion-list>
+
+	        <label class="item item-input" name="activity_distance">
+	            <span class="input-label">distance</span>
+	            <input ng-model="act_dist" type="text" placeholder="distance" >
+	        </label>
+
+	        <label class="item item-input" name="activity_time">
+	            <span class="input-label">time</span>
+	            <input ng-model="act_time" type="text" placeholder="time" >
+	        </label>
+
+	        <label class="item item-input" name="activity_pace">
+	            <span class="input-label">pace</span>
+	            <input ng-model="act_pace" type="text" placeholder="pace" >
+	        </label>
+
+	        <label class="item item-input" name="activity_calburnput">
+	            <span class="input-label">calburn</span>
+	            <input ng-model="act_calburn" type="text" placeholder="calburn" >
+	        </label>   
+
+	    </ion-list>
+			
+			</br><button ng-click="create()" style="left:-10px;font-weight:600;" class="button button-positive">Add new activity</button></br>
+
+
+	</div> 
+
+		</br>
+	        <div ng-controller="activityListCtrl"> 
+		        <ion-list>
+		            <ion-item ui-sref="tabsController.activity1Details" ng-repeat="activity in actlist"> 
+		            {{ activity.date }} : {{ activity.distance}}km : {{ activity.calories }}Kcal burned!
+		        	</ion-item>
+		            <!-- <ion-item ui-sref="tabsController.activity2Details">Activity 2 Date; Distance; Time; Calories</ion-item>
+		            <ion-item ui-sref="tabsController.activity3Details">Activity 3 Date; Distance; Time; Calories</ion-item> -->
+		        </ion-list>
+	    	</div> 
+	</br>
+
+   
     </ion-content>
 </ion-view>
