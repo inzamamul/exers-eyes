@@ -77,3 +77,29 @@ function DemoCtrl($scope, $http, Backand) {
     });
   };
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     function amInear() {
+
+
+    console.log("line169 " + $scope.startlatlng.lat())
+            var tmpdelta= Math.abs($scope.startlatlng.lat() - $scope.mylat);
+    console.log("line171 " + tmpdelta)       
+            $scope.delta = tmpdelta.toFixed(5);
+
+            console.log("lat of first marker: " + $scope.startlatlng.lat())
+            console.log("lat of me: " + $scope.mylat )
+            console.log("difference between me and marker: " + $scope.delta)
+            
+            if( $scope.delta > 0.0001){
+                return $scope.isnear = true;
+            }else{
+                return $scope.isnear = false;
+            }
+        
+        };
+
+
+    

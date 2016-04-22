@@ -6,17 +6,18 @@
     
     <div class="item item-divider">Available Routes in London</div>
     <ion-list>
-        <ion-radio name="routeChoice" ng-repeat="route in routeList" ng-value="route.name" ng-model="chosenRoute.name">
+        <ion-radio name="routeChoice" ng-repeat="route in routeList" ng-value="route" ng-model="chosenroute.choice">
         
-        {{ route.name }}: {{ route.startLoc }}: {{ route.endLoc }}
+        {{ route.name }} 
         </ion-radio>
    
     </ion-list>
     
-    <h4 class="center"> Chosen Route: {{ chosenRoute.name }} </h4> 
+    <h4 class="center"> Chosen Route: {{ chosenroute.choice.name}} </h4> 
 
-        <!-- put this in button element below > ng-click="startTimer()"  -->
-    <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" ng-click="beginActivity()">Ready? Lets go!</button>
+    <!-- put this in button element below > ng-click="startTimer()"  -->
+
+    <button ng-click="beginActivity()" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" >Ready? Lets go!</button>
 
     <button ui-sref="tabsController.dashboard" style="font-weight:600;color:#FFFFFF;" class="button button-assertive button-block button-large button-full">Cancel Activity</button>
 

@@ -1,73 +1,62 @@
 // Activty Settings Controller (contains the settings used by the user when they inititate activity)      
-angular.module('app.controllers').controller('activitySettingsCtrl', function($rootScope, $scope, $state, $ionicPopup, RouteFactory) {
-	   
-		$scope.routeList = [
-		  { name: "Mile End Park Loop",
-		    startLoc: "51.543963, -0.032926", 
-		    endLoc: "51.518631, -0.035189" , 
-		  }, 
+angular.module('app.controllers').controller('activitySettingsCtrl', function( $scope,$rootScope, $state, $ionicPopup, RouteFactory) {
+		   
+	$scope.routeList = [
+	  { name: "Mile End Road Test",
+	    startLoc: "51.523045, -0.039911", 
+	    endLoc: "51.522503, -0.041855" , 
+	  }, 
 
-		    {   name: "Victoria Park Loop",
-		    startLoc: "51.523412, -0.036398", 
-		    endLoc: "51.533408, -0.041382" , 
-		  }, 
+	  { name: "Mile End Park Loop",
+	    startLoc: "51.543963, -0.032926", 
+	    endLoc: "51.518631, -0.035189" , 
+	  }, 
 
-		    {   name: "Hyde Park Loop",
-		    startLoc: "51.511339, -0.171213" , 
-		    endLoc: "51.505709, -0.152313" , 
-		  }, 
+	    {   name: "Victoria Park Loop",
+	    startLoc: "51.523412, -0.036398", 
+	    endLoc: "51.533408, -0.041382" , 
+	  }, 
 
-		    {   name: "Regents Park Loop",
-		    startLoc: "51.534865, -0.158828" , 
-		    endLoc: "51.525436, -0.146639" , 
-		  }, 
+	    {   name: "Hyde Park Loop",
+	    startLoc: "51.511339, -0.171213" , 
+	    endLoc: "51.505709, -0.152313" , 
+	  }, 
 
-		    {   name: "Greenwich Park Loop",
-		    startLoc: "51.479586, -0.006624" , 
-		    endLoc: "51.473982, 0.004455" , 
-		  }, 
+	    {   name: "Regents Park Loop",
+	    startLoc: "51.534865, -0.158828" , 
+	    endLoc: "51.525436, -0.146639" , 
+	  }, 
 
-		    {   name: "Battersea Park Loop",
-		    startLoc: "51.478313, -0.149929" , 
-		    endLoc: "51.481011, -0.158304" , 
-		  }, 
-		  ];
+	    {   name: "Greenwich Park Loop",
+	    startLoc: "51.479586, -0.006624" , 
+	    endLoc: "51.473982, 0.004455" , 
+	  }, 
 
-		  $scope.chosenRoute = { name: 'Choose a route!', startLoc: '0', endLoc: '0' }; 
+	    {   name: "Battersea Park Loop",
+	    startLoc: "51.478313, -0.149929" , 
+	    endLoc: "51.481011, -0.158304" , 
+	  }, 
+	  ];	
 
-		  $scope.$watch('chosenRoute.name', function (newRoute, oldRoute) {
-		  	if (newRoute != oldRoute )
-		  		RouteFactory.setRouteName(newRoute);
-		  		console.log("acitivity settings routename " + newRoute);
-
-console.log("scope route is: " + $scope.chosenRoute.startLoc)
-		  })
-
-		  $scope.$watch('chosenRoute.startLoc', function (newStart, oldStart) {
-		  	if (newStart != oldStart )
-		  		RouteFactory.setRouteStart(newStart);
-		  		console.log("acitivity settings routestart" + newStart);
-
-		  })		  
-
-		  $scope.$watch('chosenRoute.endLoc', function (newEnd, oldEnd) {
-		  	if (newEnd != oldEnd )
-		  		RouteFactory.setRouteEnd(newEnd);
-		  		console.log("acitivity settings routeend" + newEnd);
-
-		  })
-
+	  $scope.chosenroute = { choice: 'Select a route!' }
 
 // Once the user clicks the button "Ready? Lets Go!"
-		  $scope.beginActivity = function(){
-			  if($scope.chosenRoute.name != 'Choose a route!'){
-			  		$state.go('activityInProgress')
-			  }else{
-			  	$state.go('activityInProgress')
-					$ionicPopup.alert({
-			     			title: 'Pick a route!',
-			    			template: 'Please select a route from the list.'
+	  $scope.beginActivity = function(){
+
+	  	// assigning the route to be used 
+		$rootScope.routeName = $scope.chosenroute.choice.name;
+ 		$rootScope.routestart = $scope.chosenroute.choice.startLoc;
+ 		$rootScope.routeend = $scope.chosenroute.choice.endLoc;
+		console.log("name of route: " + $scope.chosenroute.choice.name + " start of route: " + $rootScope.routestart) 
+
+		 	if($rootScope.routeName == undefined){
+	 			$ionicPopup.alert({
+	     			title: 'Pick a route!',
+	    			template: 'Please select a route from the list.'
 			   	});
-				}
-			};
+			}else{
+				//console.log("sucess")
+				$state.go('activityInProgress')
+			}
+		};
 })

@@ -55,7 +55,12 @@ angular.module('app.controllers', [])
 		            alert(reason);
 		        });
 		}, false);		
-	}	
+	}	// End tester() 
+
+	$scope.activityPrep = function() {
+
+		$state.go('activitySettings')
+	}
 })
 
 // Controllers for the activities of individual pieces of historical activity (may be made redundnant)   

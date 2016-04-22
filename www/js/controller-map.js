@@ -1,17 +1,7 @@
 //Adapted from http://www.gajotres.net/using-cordova-geoloacation-api-with-google-maps-in-ionic-framework/
  
-angular.module('app.controllers').controller('MapController', function($scope, $cordovaGeolocation, RouteFactory,  $ionicLoading, $cordovaVibration, $rootScope) { 
+angular.module('app.controllers').controller('MapController', function($scope, $rootScope, $cordovaGeolocation, $ionicLoading, $cordovaVibration) { 
 
-    // Get routes from routeFactory 
-    $scope.$watch(function (){
-        return RouteFactory.getRoute();
-    }, 
-    
-    function(newRoute, oldRoute){
-    if (newRoute !== oldRoute)
-        $scope.chosenRoute = newRoute;
-        console.log("mapctrller route: " + $scope.chosenRoute )
-    });
 
 // 1. Check if near route 1. Plot Route 2. Provide Directions 3. Locate yourself
  
@@ -19,158 +9,26 @@ angular.module('app.controllers').controller('MapController', function($scope, $
     var end = "" // end latlng of route
     var distThresh = 5 // distance Threshold for checking if the user is near start lcoation or not 
 
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;  
 
-        $scope.checkIfClose = function() {
-
-            if($scope.chosenRoute!=null){
-                start = $scope.chosenRoute
-            }else{
-                console.log("scope routestart is null")
-                  start = "51.543963, -0.032926"
-                  start = new google.maps.LatLng("51.543963", "-0.032926")
-            }
-
-            if($scope.chosenRoute!= null){
-                end = $scope.chosenRoute
-            }else{
-                console.log("scope routeend is null")
-                end = "51.518631, -0.035189"
-            }        
-
-            var posOptions = {
-                enableHighAccuracy: true,
-                timeout : 100000,
-                maximumAge: 3600000
-            };
-
-            $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-                $scope.mylat = position.coords.latitude;
-                $scope.mylong = position.coords.longitude;
-
-                $scope.myLatlng = new google.maps.LatLng($scope.mylat, $scope.mylong);
-            })
-
-//// NEED TO FIX 
-//// NOT GETTING THE LAT LONG STORED IN MYLATLONG
-
-            console.log(start + "WHAT THE FUCK " + $scope.mylat )
-
-            $scope.distfromstart = google.maps.geometry.spherical.computeDistanceBetween(start, $scope.myLatLng)
-
-            if($scope.distfromstart > distThresh){
-
-                console.log("You are too far away!")
-            }else{
-                console.log("Proceed with route. ")
-            }
-
-
-        }
-    
-    
-
-        function calculateRoute(directionsService, directionsDisplay){
-
-
-            directionsService.route({
-                origin: start, 
-                destination: end,
-                travelMode: google.maps.TravelMode.WALKING
-            }, function(response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        
-
-                        directionsDisplay.setDirections(response);
-                        walkingSteps(response);
-//                        amInear(); // check i am near first waypoint in directions
-
-
-                    }else {
-                        console.log("directions service failed");
-                        // change this later to ionic popup window
-                    }
-            });
-        }; // end calculateRoute
-
-        function walkingSteps(directionResult){
-
-            var currentstep; 
-            var route = directionResult.routes[0].legs[0];
-
-            $scope.overview = directionResult.routes[0].overview_path
-            $scope.bounds = directionResult.routes[0].bounds
-console.log("overviewpath: " + $scope.overview)            
-console.log("overviewpoly: " + directionResult.routes[0].overview_polyline)
-//            $scope.polyline = google.maps.geometry.encoding.decodePath(directionResult.routes[0].overview_polyline);
-
-
-console.log("route polyline: " + $scope.polyline)
-
-var cascadiaFault = new google.maps.Polyline({
-    path: [
-      new google.maps.LatLng(49.95, -128.1),
-      new google.maps.LatLng(46.26, -126.3),
-      new google.maps.LatLng(40.3, -125.4)
-    ]
-  });
-
-console.log("route cascadia: " + cascadiaFault)
-
-
-var myPosition = new google.maps.LatLng(40.301, -125.4);
-
-
-            var onpoly = false; 
-            var onpoly = google.maps.geometry.poly.isLocationOnEdge(myPosition, cascadiaFault, 10e-2)
-            
-
-            $scope.onpoly = onpoly
-            console.log("if on line: " + $scope.onpoly)
-
-    // arbitary looking for a single step in route[] >> will need to change so it follows users geoLoc
-    // if step has passed a overview array item then go to next step 
-
-            currentStep = route.steps[0].instructions;
-            $scope.currStep = currentStep
-            console.log(currentStep)
-
-            $scope.startlatlng = route.steps[1].start_location;
-            $scope.routedistance = directionResult.routes[0].legs[0].distance.value;
-
-            console.log("distance covered: " + $scope.routedistance)
- //console.log("path overview: " + $scope.overview);
-            console.log("path bounds: " + $scope.bounds)
-
-            directionsDisplay.setMap($scope.map);
-            directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-
-        }; // end walkingSteps
-
-    initializeMe();
-
-    var mapOptions = {
-        center: $scope.myLatlng,
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        draggable: false
-    };    
+        document.addEventListener("deviceready", initialized, false);
 
 
 // INSERTED LATLNG FINDER
 
-        function initializeMe() {
-             
-// $ionicLoading.show({
-//     template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
-// });
-             
+        function initialized() {
+            
             var posOptions = {
                 enableHighAccuracy: true,
                 timeout : 100000,
                 maximumAge: 3600000
             };
+
+            var mapOptions = {
+                center: $scope.myLatlng,
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                draggable: false
+            };                
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);    
 
             $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
@@ -186,8 +44,10 @@ var myPosition = new google.maps.LatLng(40.301, -125.4);
                     draggable: false
                 });
 
-// $ionicLoading.hide();  
-                     //calculate route
+            //calculate route
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var directionsService = new google.maps.DirectionsService;  
+
             calculateRoute(directionsService, directionsDisplay);
 
             },  function(err) 
@@ -212,22 +72,146 @@ var myPosition = new google.maps.LatLng(40.301, -125.4);
                       console.log("watch error!!!")
                 },
                 function(position) {
+                    //calculate route
+                    calculateRoute(directionsService, directionsDisplay);
                    
                     $scope.mylat = position.coords.latitude
                     $scope.mylong= position.coords.longitude
 
                     $scope.myLatlng = new google.maps.LatLng($scope.mylat, $scope.mylong);  
                     $scope.searchMarker.setPosition($scope.myLatlng);
-                    
-
-            console.log("scope.latlng: " + $scope.myLatlng + " scope: poly: " + $scope.polyline)
-//            $scope.onpoly = google.maps.geometry.poly.isLocationOnEdge($scope.myLatlng , $scope.polyline)
-//            console.log("if on line: " + $scope.onpoly)
 
                 } // end watch
             );
 
-        } // end initializeme
+        } // end initializeMe
+
+        function calculateRoute(directionsService, directionsDisplay){
+
+            if($rootScope.routestart != ""){
+                start = $rootScope.routestart 
+            }else{
+                console.log("scope routestart is empty")
+                console.log($rootScope.routestart )
+                  start = "51.523045, -0.039911"
+            }
+
+            if($rootScope.routeend!= "" ){
+                end = $rootScope.routeend
+            }else{
+                console.log("scope routeend is empty")
+                end = "51.522503, -0.041855"
+            }
+
+            directionsService.route({
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.TravelMode.WALKING
+            }, function(response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        
+
+                        directionsDisplay.setDirections(response);
+                        walkingSteps(response);
+//                        amInear(); // check i am near first waypoint in directions
+
+                    }else {
+                        console.log("directions service failed");
+                        // change this later to ionic popup window
+                    }
+            });
+        }; // end calculateRoute
+
+        function walkingSteps(directionResult){
+
+            var currentstep; 
+            var route = directionResult.routes[0].legs[0];
+
+            $scope.overview = directionResult.routes[0].overview_path
+            $scope.bounds = directionResult.routes[0].bounds
+//console.log("overviewpath: " + $scope.overview)            
+// console.log("overviewpoly: " + directionResult.routes[0].overview_polyline)
+//            $scope.polyline = google.maps.geometry.encoding.decodePath(directionResult.routes[0].overview_polyline);
+            
+            $scope.polyline = new google.maps.Polyline({ path: $scope.overview });
+            console.log("LINE 155: mylatlong: " + $scope.myLatlng + " myoverviewpoly: " + $scope.polyline)
+
+
+            var onpolyInner = false; 
+            var onpolyInnner = google.maps.geometry.poly.isLocationOnEdge($scope.myLatlng, $scope.polyline, 10e-8)
+
+            var onpolyOuter = false;
+            var onpolyOuter= google.maps.geometry.poly.isLocationOnEdge($scope.myLatlng, $scope.polyline, 10e-6)
+
+            $scope.onpolyInner = onpolyInner
+            $scope.onpolyOuter = onpolyOuter
+
+            if(!$scope.onpolyInner){
+                    // user is not within bounds
+                console.log("user is outside inner polyline bounds ")
+                document.addEventListener('deviceready', function () {
+               
+                // Vibrate test
+                navigator.vibrate(500);
+
+                // Text To Speech (TTS)
+                TTS
+                    .speak({
+                        text: 'You are outside inner bounds!',
+                        locale: 'en-GB',
+                        rate: 1.5
+                    }, function () {
+                        alert('Get back on route!');
+                    }, function (reason) {
+                        alert(reason);
+                    });
+                }, false);  
+
+                if(!$scope.onpolyOuter){
+                    // user is not within bounds
+                console.log("user is outside outer polyline bounds ")
+                document.addEventListener('deviceready', function () {
+               
+                // Vibrate test
+                navigator.vibrate(500);
+                navigator.vibrate(500);
+
+                // Text To Speech (TTS)
+                TTS
+                    .speak({
+                        text: 'You are outside outer bounds!',
+                        locale: 'en-GB',
+                        rate: 1.5
+                    }, function () {
+                        alert('Get back on route!');
+                    }, function (reason) {
+                        alert(reason);
+                    });
+                }, false);  
+
+                
+            }
+
+            }
+
+    // arbitary looking for a single step in route[] >> will need to change so it follows users geoLoc
+    // if step has passed a overview array item then go to next step 
+
+            currentStep = route.steps[0].instructions;
+            $scope.currStep = currentStep
+            console.log(currentStep)
+
+            $scope.startlatlng = route.steps[1].start_location;
+            $scope.routedistance = directionResult.routes[0].legs[0].distance.value;
+
+            console.log("distance covered: " + $scope.routedistance)
+ //console.log("path overview: " + $scope.overview);
+            console.log("path bounds: " + $scope.bounds)
+
+            directionsDisplay.setMap($scope.map);
+            directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+        }; // end walkingSteps
 
 // call the google matrix api somehwere here to see distance travelled based on your startLoc and your current LatLng
 

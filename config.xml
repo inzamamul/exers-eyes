@@ -2,13 +2,15 @@
 <widget id="com.ionicframework.exerseyes236766" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>exers-eyes</name>
   <description>
-      QMUL EECS FYP: "Development Of A Mobile Application To Provide Assistance With Exercise To A Visually-Impaired User."
+      QMUL EECS FYP: &quot;Development Of A Mobile Application To Provide Assistance With Exercise To A Visually-Impaired User.&quot;
     </description>
   <author email="inz.haque@me.com" href="http://qmul.ac.uk">
         Inzamamul Haque, QMUL ID 12016085
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <access origin="*.google.com"/>
+    <access origin="*.googleapis.com"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -19,7 +21,6 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>

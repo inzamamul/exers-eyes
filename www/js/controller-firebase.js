@@ -11,8 +11,15 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
         }).then(function(authData) {
             $state.go('tabsController.dashboard')
             console.log("sucessfully logged in! ")
+                      
         }).catch(function(error) {
             console.error("LOGIN ERROR: " + error);
+            
+            var alertPopup = $ionicPopup.alert({
+                title: 'Login Error!!',
+                template: error
+            });             
+
         });
     }
  
