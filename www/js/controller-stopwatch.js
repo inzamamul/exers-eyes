@@ -1,4 +1,4 @@
-angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $interval, $localstorage, $rootScope, $stateParams ) {
+angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $state, $interval, $localstorage, $rootScope, $stateParams ) {
 
         var tElapsed
         
@@ -26,6 +26,9 @@ angular.module('app.controllers').controller('stopwatchCtrl', function($scope, $
             $interval.cancel(tElapsed);
             tElapsed = undefined;
           }
+
+        $scope = [];
+        $state.go('activityCompleted');
         };
         
         $scope.startTimer = function() {

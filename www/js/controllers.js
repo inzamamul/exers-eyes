@@ -25,7 +25,37 @@ angular.module('app.controllers', [])
 			$scope.getUser()
 	})
 	$scope.getUser()
-	
+
+
+	$scope.tester = function() { 
+		console.log("button clicked :)")
+		// make sure your the code gets executed only after `deviceready`.
+		document.addEventListener('deviceready', function () {
+		   
+		    // Vibrate test
+		    navigator.vibrate(500);
+
+		    // basic TTS usage
+		    // TTS
+		    //     .speak('hello, world!', function () {
+		    //         alert('success');
+		    //     }, function (reason) {
+		    //         alert(reason);
+		    //     });
+
+		    // or with more options
+		    TTS
+		        .speak({
+		            text: 'You a bitch!',
+		            locale: 'en-GB',
+		            rate: 1.5
+		        }, function () {
+		            alert('success');
+		        }, function (reason) {
+		            alert(reason);
+		        });
+		}, false);		
+	}	
 })
 
 // Controllers for the activities of individual pieces of historical activity (may be made redundnant)   
@@ -36,38 +66,5 @@ angular.module('app.controllers', [])
 .controller('activity2DetailsCtrl', function($scope) {
 
 })
-   
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-// controller for DB access -- /// will be used later ?????
-
-// Controller for DB access -- using LokiJS for the local storage DB
-// .controller('OverviewCtrl', ['$scope', '$ionicPlatform', 'UserService', OverviewCtrl]);
-// function OverviewCtrl($scope, $ionicPlatform, UserService) {  
-//     var vm = this;
-
-//     $ionicPlatform.ready(function() {
-
-//         // Initialize the database.
-//         UserService.initDB();
-
-//         // Get all birthday records from the database.
-//         UserService.getAllUsers()
-//                         .then(function (Users) {
-//                             vm.Users = Users;
-//                         });
-//     });
-
-//     $scope.saveUser = function() {
-//         if ($scope.isAdd) {
-//             UserService.addUser($scope.user);              
-//         } else {
-//             UserService.updateUser($scope.user);               
-//         }                       
-//         $scope.modal.hide();
-//     };
-
-//     return vm;
-// }
-
+  
 

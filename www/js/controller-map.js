@@ -1,31 +1,78 @@
-
 //Adapted from http://www.gajotres.net/using-cordova-geoloacation-api-with-google-maps-in-ionic-framework/
  
-angular.module('app.controllers').controller('MapController', function($scope, $cordovaGeolocation, $ionicLoading, $cordovaVibration, $rootScope) { 
+angular.module('app.controllers').controller('MapController', function($scope, $cordovaGeolocation, RouteFactory,  $ionicLoading, $cordovaVibration, $rootScope) { 
+
+    // Get routes from routeFactory 
+    $scope.$watch(function (){
+        return RouteFactory.getRoute();
+    }, 
+    
+    function(newRoute, oldRoute){
+    if (newRoute !== oldRoute)
+        $scope.chosenRoute = newRoute;
+        console.log("mapctrller route: " + $scope.chosenRoute )
+    });
+
+// 1. Check if near route 1. Plot Route 2. Provide Directions 3. Locate yourself
+ 
+    var start = "" // start latlng of route
+    var end = "" // end latlng of route
+    var distThresh = 5 // distance Threshold for checking if the user is near start lcoation or not 
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;      
-                
-         //calculate route
-        calculateRoute(directionsService, directionsDisplay);
+    var directionsService = new google.maps.DirectionsService;  
 
-        function calculateRoute(directionsService, directionsDisplay){
-            var start = ""
-            var end = ""
-          
-            if($scope.routestart!=null){
-                start = $scope.routestart
+        $scope.checkIfClose = function() {
+
+            if($scope.chosenRoute!=null){
+                start = $scope.chosenRoute
             }else{
                 console.log("scope routestart is null")
-                  start = "51.524198, -0.037164"
+                  start = "51.543963, -0.032926"
+                  start = new google.maps.LatLng("51.543963", "-0.032926")
             }
 
-            if($scope.routeend!= null){
-                end = $scope.routeend
+            if($scope.chosenRoute!= null){
+                end = $scope.chosenRoute
             }else{
                 console.log("scope routeend is null")
-                end = "51.527941, -0.020466"
+                end = "51.518631, -0.035189"
+            }        
+
+            var posOptions = {
+                enableHighAccuracy: true,
+                timeout : 100000,
+                maximumAge: 3600000
+            };
+
+            $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+                $scope.mylat = position.coords.latitude;
+                $scope.mylong = position.coords.longitude;
+
+                $scope.myLatlng = new google.maps.LatLng($scope.mylat, $scope.mylong);
+            })
+
+//// NEED TO FIX 
+//// NOT GETTING THE LAT LONG STORED IN MYLATLONG
+
+            console.log(start + "WHAT THE FUCK " + $scope.mylat )
+
+            $scope.distfromstart = google.maps.geometry.spherical.computeDistanceBetween(start, $scope.myLatLng)
+
+            if($scope.distfromstart > distThresh){
+
+                console.log("You are too far away!")
+            }else{
+                console.log("Proceed with route. ")
             }
+
+
+        }
+    
+    
+
+        function calculateRoute(directionsService, directionsDisplay){
+
 
             directionsService.route({
                 origin: start, 
@@ -56,7 +103,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
             $scope.bounds = directionResult.routes[0].bounds
 console.log("overviewpath: " + $scope.overview)            
 console.log("overviewpoly: " + directionResult.routes[0].overview_polyline)
-            $scope.polyline = google.maps.geometry.encoding.decodePath(directionResult.routes[0].overview_polyline);
+//            $scope.polyline = google.maps.geometry.encoding.decodePath(directionResult.routes[0].overview_polyline);
 
 
 console.log("route polyline: " + $scope.polyline)
@@ -107,7 +154,7 @@ var myPosition = new google.maps.LatLng(40.301, -125.4);
         center: $scope.myLatlng,
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        draggable: false   
+        draggable: false
     };    
 
 
@@ -140,7 +187,9 @@ var myPosition = new google.maps.LatLng(40.301, -125.4);
                 });
 
 // $ionicLoading.hide();  
-       
+                     //calculate route
+            calculateRoute(directionsService, directionsDisplay);
+
             },  function(err) 
             {
                 console.log(err);
@@ -180,25 +229,25 @@ var myPosition = new google.maps.LatLng(40.301, -125.4);
 
         } // end initializeme
 
-// other stuff 
+// call the google matrix api somehwere here to see distance travelled based on your startLoc and your current LatLng
 
-        function amInear() {
+    //     function amInear() {
 
 
-    console.log("line169 " + $scope.startlatlng.lat())
-            var tmpdelta= Math.abs($scope.startlatlng.lat() - $scope.mylat);
-    console.log("line171 " + tmpdelta)       
-            $scope.delta = tmpdelta.toFixed(5);
+    // console.log("line169 " + $scope.startlatlng.lat())
+    //         var tmpdelta= Math.abs($scope.startlatlng.lat() - $scope.mylat);
+    // console.log("line171 " + tmpdelta)       
+    //         $scope.delta = tmpdelta.toFixed(5);
 
-            console.log("lat of first marker: " + $scope.startlatlng.lat())
-            console.log("lat of me: " + $scope.mylat )
-            console.log("difference between me and marker: " + $scope.delta)
+    //         console.log("lat of first marker: " + $scope.startlatlng.lat())
+    //         console.log("lat of me: " + $scope.mylat )
+    //         console.log("difference between me and marker: " + $scope.delta)
             
-            if( $scope.delta > 0.0001){
-                return $scope.isnear = true;
-            }else{
-                return $scope.isnear = false;
-            }
+    //         if( $scope.delta > 0.0001){
+    //             return $scope.isnear = true;
+    //         }else{
+    //             return $scope.isnear = false;
+    //         }
         
-        };
+    //     };
 });

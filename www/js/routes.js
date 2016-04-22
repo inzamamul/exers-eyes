@@ -96,13 +96,13 @@ angular.module('app.routes', [])
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'verificationCtrl'
+    controller: 'firebaseCtrl'
   })
 
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html',
-    controller: 'verificationCtrl'
+    controller: 'firebaseCtrl'
   })
 
 $urlRouterProvider.otherwise('/login')

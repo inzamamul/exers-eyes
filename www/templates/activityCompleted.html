@@ -23,7 +23,9 @@
             <button ng-click="shareActivity()" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Share your activity</button>
         </div> 
 
-        <button ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Tap here to complete activity</button>
+        <div ng-controller="firebaseCtrl">
+            <button ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full">Tap here to complete activity</button>
+        </div> 
     </ion-content>
 </ion-view>
 

@@ -1,22 +1,22 @@
 <ion-view title="Activity Settings">
-    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activityInProgressCtrl">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
         
     <center><h2>Set up your activity!</h2></center>
     </br> 
     
     <div class="item item-divider">Available Routes in London</div>
     <ion-list>
-        <ion-radio name="routeChoice" ng-repeat="route in routeList" ng-model="chosenRoute">
+        <ion-radio name="routeChoice" ng-repeat="route in routeList" ng-value="route.name" ng-model="chosenRoute.name">
         
-        {{ route.name}}
+        {{ route.name }}: {{ route.startLoc }}: {{ route.endLoc }}
         </ion-radio>
    
     </ion-list>
     
-    <h4 class="center"> Chosen Route: {{ chosenRoute }} </h4> 
+    <h4 class="center"> Chosen Route: {{ chosenRoute.name }} </h4> 
 
         <!-- put this in button element below > ng-click="startTimer()"  -->
-    <button ui-sref="activityInProgress" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full">Ready? Lets go!</button>
+    <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" ng-click="beginActivity()">Ready? Lets go!</button>
 
     <button ui-sref="tabsController.dashboard" style="font-weight:600;color:#FFFFFF;" class="button button-assertive button-block button-large button-full">Cancel Activity</button>
 

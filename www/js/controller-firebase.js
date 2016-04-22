@@ -1,16 +1,16 @@
 // Controller for Activity Completed (when the user has finished the activity)
-angular.module('app.controllers').controller('verificationCtrl', function($scope, $state, $firebaseAuth, $firebaseObject, $ionicPopup) {
+angular.module('app.controllers').controller('firebaseCtrl', function($scope, $state, $firebaseAuth, $firebaseObject, $ionicPopup) {
 
 var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
 
- $scope.login = function(login_username, login_password) {
+     $scope.login = function(login_username, login_password) {
         var fbaseAuth = $firebaseAuth(fbase);
         fbaseAuth.$authWithPassword({
             email: login_username,
             password: login_password
         }).then(function(authData) {
             $state.go('tabsController.dashboard')
-            console.log("sucess! ")
+            console.log("sucessfully logged in! ")
         }).catch(function(error) {
             console.error("LOGIN ERROR: " + error);
         });
@@ -32,11 +32,12 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
 
     $scope.logout = function() {
 
+        $scope.profile = []; 
         fbase.unauth();
         $state.go('login');
+        console.log("successfully logged out. ")
 
     }
-
 
     $scope.profile = function() {
 
@@ -47,8 +48,6 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
         }
 
     }
-
-
 
     // $scope.userdetails = function() {
 
@@ -81,6 +80,8 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
 
     $scope.saveDetails = function(){
 
+
+
        $ionicPopup.prompt({
                 title: 'Enter your name',
                 inputType: 'text'
@@ -89,9 +90,9 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
                 if(result !== "") {
                     if($scope.profile.hasOwnProperty("details") !== true) {
                         $scope.profile.details = [];
-                        console.log("ya goofed son")
                     }
                     $scope.profile.details.push({name: result, age: 20, height: 165, weight: 70});
+                    console.log("pushed details to new tuple: " + $scope.profile)
                 } else {
                     console.log("Details not saved to FBase database. ");
                 }

@@ -1,3 +1,12 @@
+// Template - for reusing factory and services 
+  
+  //.factory('BlankFactory', [function(){
+  // }])
+
+
+  // .service('BlankService', [function(){
+  // }])
+
 angular.module('app.services', [])
 
 // AngularJS Service for local storage
@@ -18,77 +27,28 @@ angular.module('app.services', [])
   }
 }])
 
-.factory('BlankFactory', [function(){
+// Adapted from http://jsfiddle.net/27mk1n1o/
+.factory('RouteFactory', [function(){
 
+  var chosenRoute = [];
+  return {
+
+    getRoute: function() {
+      return chosenRoute; 
+
+  }, 
+    setRouteName: function(routename) {
+      chosenRoute.name = routename;
+    },
+
+    setRouteStart: function(routeStart) {
+      chosenRoute.startLoc =  routeStart;
+    },
+
+    setRouteEnd: function(routeStart) {
+      chosenRoute.endLoc = routeStart;
+    }
+
+
+  };
 }])
-
-.service('BlankService', [function(){
-
-}])
-
-
-
-// Back& Backend as a Service (BaaS) 
-.service('APIInterceptor', function ($rootScope, $q) {
-        var service = this;
-
-        service.responseError = function (response) {
-            if (response.status === 401) {
-                $rootScope.$broadcast('unauthorized');
-            }
-            return $q.reject(response);
-        };
-    })
-
-.service('ItemsModel', function ($http, Backand) {
-  var service = this,
-      baseUrl = '/1/objects/',
-      objectName = 'items/';
-
-  function getUrl() {
-      return Backand.getApiUrl() + baseUrl + objectName;
-  }
-
-  function getUrlForId(id) {
-      return getUrl() + id;
-  }
-
-  service.all = function () {
-      return $http.get(getUrl());
-  };
-
-  service.fetch = function (id) {
-      return $http.get(getUrlForId(id));
-  };
-
-  service.create = function (object) {
-      return $http.post(getUrl(), object);
-  };
-
-  service.update = function (id, object) {
-      return $http.put(getUrlForId(id), object);
-  };
-
-  service.delete = function (id) {
-      return $http.delete(getUrlForId(id));
-  };
-})
-
-.service('LoginService', function (Backand) {
-  var service = this;
-
-  service.signin = function (email, password, appName) {
-      //call Backand for sign in
-      console.log("SERVICESJS user: " +  email + " || pass: "  + password)
-      return Backand.signin(email, password);
-  };
-
-  service.anonymousLogin= function(){
-      // don't have to do anything here,
-      // because we set app token att app.js
-  }
-
-  service.signout = function () {
-      return Backand.signout();
-  };
-});

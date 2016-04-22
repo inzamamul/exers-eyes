@@ -1,7 +1,7 @@
 <ion-view title="Activity List">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-	    <h3>List of previous activities</h3>
-	<div ng-controller="verificationCtrl" ng-init="profile()">
+	    <center><h3>List of previous activities</h3></center>
+	<div ng-controller="firebaseCtrl" ng-init="profile()">
 		        <div> 
 			        <div ng-repeat="activity in profile.activities" class ="item">
 			        	{{ activity.distance }}
@@ -9,8 +9,8 @@
 		    	</div> 
 
 
-
-	    <h3> add new activity </h3>     
+</br> 
+	    <center><h3>add new activity </h3></center>
 	    <ion-list>
 
 	        <label class="item item-input" name="activity_distance">
@@ -35,23 +35,20 @@
 
 	    </ion-list>
 			
-			</br><button ng-click="create()" style="left:-10px;font-weight:600;" class="button button-positive">Add new activity</button></br>
+			</br><button ng-click="create()" style="left:-10px;font-weight:600;" class="button button-positive button-block button-large">Add new activity</button></br>
 
 
 	</div> 
 
 		</br>
-	        <div ng-controller="activityListCtrl"> 
+<!-- 	        <div ng-controller="activityListCtrl"> 
 		        <ion-list>
 		            <ion-item ui-sref="tabsController.activity1Details" ng-repeat="activity in actlist"> 
 		            {{ activity.date }} : {{ activity.distance}}km : {{ activity.calories }}Kcal burned!
 		        	</ion-item>
-		            <!-- <ion-item ui-sref="tabsController.activity2Details">Activity 2 Date; Distance; Time; Calories</ion-item>
-		            <ion-item ui-sref="tabsController.activity3Details">Activity 3 Date; Distance; Time; Calories</ion-item> -->
-		        </ion-list>
-	    	</div> 
-	</br>
 
+		        </ion-list>
+	    	</div>  -->
    
     </ion-content>
 </ion-view>
