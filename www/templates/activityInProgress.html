@@ -3,19 +3,21 @@
 
       <!-- Map object --> 
       	
-      <ion-content padding="true" ng-controller="MapController">
+      <ion-content padding="true">
 
       	<!--  uncomment the below at production ng-init="startTimer()-->
       	<div ng-controller="stopwatchCtrl"> 
       	<h3 class="center">Time Elapsed: {{hours}}: {{mins}}: {{ secs }} </h3>
       		
 
-                  <h3> This is mylat {{ mylat }} </h3>
-                  <h3> This is mylong {{ mylong }}</h3> 
+                  <h3> This is mylat {{ shortlat }} </h3>
+                  <h3> This is mylong {{ shortlong }}</h3> 
 
                   <p>Am i near away from a point? {{isnear}} at {{ delta  }}</p>
-                  <h4> {{currStep}}</h4>
+                  <h4 ng-bind-html="currStep"></h4>
                   <h4>Distance covered in route: {{ routedistance }}m</h4>
+                  <h4>Distance covered so far: {{ distTravelled }}m<h4>
+
                   <div id="map"></div>
                   <div id="directionsPanel"></div>
 

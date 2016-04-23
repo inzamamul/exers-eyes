@@ -35,14 +35,6 @@ angular.module('app.controllers', [])
 		    // Vibrate test
 		    navigator.vibrate(500);
 
-		    // basic TTS usage
-		    // TTS
-		    //     .speak('hello, world!', function () {
-		    //         alert('success');
-		    //     }, function (reason) {
-		    //         alert(reason);
-		    //     });
-
 		    // or with more options
 		    TTS
 		        .speak({

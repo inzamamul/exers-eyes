@@ -1,55 +1,138 @@
 //Adapted from http://www.gajotres.net/using-cordova-geoloacation-api-with-google-maps-in-ionic-framework/
  
-angular.module('app.controllers').controller('MapController', function($scope, $rootScope, $cordovaGeolocation, $ionicLoading, $cordovaVibration) { 
+angular.module('app.controllers').controller('MapController', function($scope,  $rootScope, $cordovaGeolocation, $ionicLoading, $cordovaVibration) { 
+     
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsService = new google.maps.DirectionsService;
+
+    var start = ""
+    var end = ""
+    var startLoc = ""
+    var currentstep = ""
+    var stepcounter = 0; 
+    var geoDist
+        geoDist = 0 
+    var tempDist
+        tempDist = 0
+    var oldLatLng 
+         //calculate route
+        
+        calculateRoute(directionsService, directionsDisplay);
 
 
-// 1. Check if near route 1. Plot Route 2. Provide Directions 3. Locate yourself
- 
-    var start = "" // start latlng of route
-    var end = "" // end latlng of route
-    var distThresh = 5 // distance Threshold for checking if the user is near start lcoation or not 
+        function calculateRoute(directionsService, directionsDisplay){
+
+            start = "51.523045, -0.039911"
+            end = "51.522503, -0.041855"
+
+            startLat = start.split(",")[0];
+            startLng = start.split(",")[1];
+
+            endLat = end.split(",")[0];
+            endLng = end.split(",")[1];
+
+// storing google latlng objects from the start and end latlng 
+            $scope.startLatLng = new google.maps.LatLng(startLat, startLng);
+            $scope.endLatLng = new google.maps.LatLng(endLat, endLng);
+
+            
+            directionsService.route({
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.TravelMode.WALKING
+            }, function(response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        
 
 
-        document.addEventListener("deviceready", initialized, false);
+                        directionsDisplay.setDirections(response); // displays directions on maps
+                        walkingSteps(response);
 
+                    }else {
+                        console.log("directions service failed");
+                        // change this later to ionic popup window
+                    }
+            });
+        }; // end calculateRoute
+
+        function walkingSteps(directionResult){
+
+           
+            $scope.route = directionResult.routes[0].legs[0];
+
+            $scope.overview = directionResult.routes[0].overview_path
+            $scope.bounds = directionResult.routes[0].bounds
+            $scope.directionResult = directionResult
+
+    // arbitary looking for a single step in route[] >> will need to change so it follows users geoLoc
+    // if step has passed a overview array item then go to next step 
+
+         
+            console.log("distance covered: " + $scope.routedistance)
+            console.log("path overview: " + $scope.overview);
+            console.log("path bounds: " + $scope.bounds)
+
+           document.addEventListener("deviceready", onDeviceReady, false);
+            onDeviceReady();
+        }; // end walkingSteps
 
 // INSERTED LATLNG FINDER
 
-        function initialized() {
-            
+        function onDeviceReady() {
+               
             var posOptions = {
                 enableHighAccuracy: true,
                 timeout : 100000,
                 maximumAge: 3600000
             };
-
-            var mapOptions = {
-                center: $scope.myLatlng,
-                zoom: 14,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                draggable: false
-            };                
-            $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);    
-
+         
             $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-                $scope.mylat = position.coords.latitude;
-                $scope.mylong = position.coords.longitude;
+                $scope.lat = position.coords.latitude;
+                $scope.long = position.coords.longitude;
+                
+                $scope.myLatLng = new google.maps.LatLng($scope.lat , $scope.long);
+                
+                oldLatLng = $scope.myLatLng
 
-                $scope.myLatlng = new google.maps.LatLng($scope.mylat, $scope.mylong);
-                    
+// // if location is not nearby start point of the route  
+
+//                 var service = new google.maps.DistanceMatrixService; 
+//                 service.getDistanceMatrix({
+//                     origins: start, 
+//                     destinations: end, 
+//                     travelModel: google.maps.TravelMode.WALKING, 
+//                     unitSystem: google.maps.UnitSystem.METRIC, 
+//                 }, function(response, status) {
+//                     if(status !== google.maps.DistanceMatrixStatus.OK){
+//                         alert('there was an error'); 
+//                     }else{
+//                         $scope.startDistance = response.originAddresses; 
+//                     }
+//                 })
+//                 console.log("ifnearstartloc: " + $scope.startDistance)
+
+// ////
+                var mapOptions = {
+                    center: $scope.myLatLng,
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    draggable: false   
+                };          
+                
+                $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);          
+                     
                 $scope.searchMarker = new google.maps.Marker({
-                    position: $scope.myLatlng,
+                    position: $scope.myLatLng,
                     map: $scope.map,
                     // icon: 'http://i.stack.imgur.com/orZ4x.png',
                     draggable: false
                 });
 
-            //calculate route
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-            var directionsService = new google.maps.DirectionsService;  
-
-            calculateRoute(directionsService, directionsDisplay);
-
+                directionsDisplay.setMap($scope.map);
+                directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+          
+// $ionicLoading.hide();  
+       
             },  function(err) 
             {
                 console.log(err);
@@ -69,169 +152,105 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                 null,
                 function(err) {
                       // error
-                      console.log("watch error!!!")
                 },
                 function(position) {
-                    //calculate route
-                    calculateRoute(directionsService, directionsDisplay);
-                   
-                    $scope.mylat = position.coords.latitude
-                    $scope.mylong= position.coords.longitude
 
-                    $scope.myLatlng = new google.maps.LatLng($scope.mylat, $scope.mylong);  
-                    $scope.searchMarker.setPosition($scope.myLatlng);
+// updating new latlongs
 
-                } // end watch
-            );
+                    $scope.lat  = position.coords.latitude
+                    $scope.long = position.coords.longitude
 
-        } // end initializeMe
-
-        function calculateRoute(directionsService, directionsDisplay){
-
-            if($rootScope.routestart != ""){
-                start = $rootScope.routestart 
-            }else{
-                console.log("scope routestart is empty")
-                console.log($rootScope.routestart )
-                  start = "51.523045, -0.039911"
-            }
-
-            if($rootScope.routeend!= "" ){
-                end = $rootScope.routeend
-            }else{
-                console.log("scope routeend is empty")
-                end = "51.522503, -0.041855"
-            }
-
-            directionsService.route({
-                origin: start, 
-                destination: end,
-                travelMode: google.maps.TravelMode.WALKING
-            }, function(response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        
-
-                        directionsDisplay.setDirections(response);
-                        walkingSteps(response);
-//                        amInear(); // check i am near first waypoint in directions
-
-                    }else {
-                        console.log("directions service failed");
-                        // change this later to ionic popup window
-                    }
-            });
-        }; // end calculateRoute
-
-        function walkingSteps(directionResult){
-
-            var currentstep; 
-            var route = directionResult.routes[0].legs[0];
-
-            $scope.overview = directionResult.routes[0].overview_path
-            $scope.bounds = directionResult.routes[0].bounds
-//console.log("overviewpath: " + $scope.overview)            
-// console.log("overviewpoly: " + directionResult.routes[0].overview_polyline)
-//            $scope.polyline = google.maps.geometry.encoding.decodePath(directionResult.routes[0].overview_polyline);
-            
-            $scope.polyline = new google.maps.Polyline({ path: $scope.overview });
-            console.log("LINE 155: mylatlong: " + $scope.myLatlng + " myoverviewpoly: " + $scope.polyline)
-
-
-            var onpolyInner = false; 
-            var onpolyInnner = google.maps.geometry.poly.isLocationOnEdge($scope.myLatlng, $scope.polyline, 10e-8)
-
-            var onpolyOuter = false;
-            var onpolyOuter= google.maps.geometry.poly.isLocationOnEdge($scope.myLatlng, $scope.polyline, 10e-6)
-
-            $scope.onpolyInner = onpolyInner
-            $scope.onpolyOuter = onpolyOuter
-
-            if(!$scope.onpolyInner){
-                    // user is not within bounds
-                console.log("user is outside inner polyline bounds ")
-                document.addEventListener('deviceready', function () {
-               
-                // Vibrate test
-                navigator.vibrate(500);
-
-                // Text To Speech (TTS)
-                TTS
-                    .speak({
-                        text: 'You are outside inner bounds!',
-                        locale: 'en-GB',
-                        rate: 1.5
-                    }, function () {
-                        alert('Get back on route!');
-                    }, function (reason) {
-                        alert(reason);
-                    });
-                }, false);  
-
-                if(!$scope.onpolyOuter){
-                    // user is not within bounds
-                console.log("user is outside outer polyline bounds ")
-                document.addEventListener('deviceready', function () {
-               
-                // Vibrate test
-                navigator.vibrate(500);
-                navigator.vibrate(500);
-
-                // Text To Speech (TTS)
-                TTS
-                    .speak({
-                        text: 'You are outside outer bounds!',
-                        locale: 'en-GB',
-                        rate: 1.5
-                    }, function () {
-                        alert('Get back on route!');
-                    }, function (reason) {
-                        alert(reason);
-                    });
-                }, false);  
-
+                    $scope.shortlat = $scope.lat.toFixed(4);
+                    $scope.shortlong = $scope.long.toFixed(4)
                 
-            }
+                    $scope.myLatLng = new google.maps.LatLng($scope.lat, $scope.long);  
+                    $scope.searchMarker.setPosition($scope.myLatLng);
 
-            }
+// Calculating Distance Travelled 
 
-    // arbitary looking for a single step in route[] >> will need to change so it follows users geoLoc
-    // if step has passed a overview array item then go to next step 
+                    tempDist = google.maps.geometry.spherical.computeDistanceBetween($scope.myLatLng, oldLatLng); 
+                    console.log("tempDist travelled: " + tempDist)
+                    geoDist = geoDist + tempDist
+                    $scope.distTravelled = geoDist
+                    console.log("GEOMETRICAL DISTANCE TRAVELLED" + $scope.distTravelled)
 
-            currentStep = route.steps[0].instructions;
-            $scope.currStep = currentStep
-            console.log(currentStep)
+// seeing how many steps we've passed
+                   
+                    currentStep = $scope.route.steps[0].instructions;
+                    $scope.currStep = currentStep
+                    console.log("current steps: " + currentStep + "length of steps: " + $scope.route.steps.length)
 
-            $scope.startlatlng = route.steps[1].start_location;
-            $scope.routedistance = directionResult.routes[0].legs[0].distance.value;
+                    for (i = 0; i < $scope.route.steps.length; i++) { 
+                      
+                           console.log($scope.route.steps[i].instructions);
+                           console.log($scope.route.steps[i].end_location.lat() + " " + $scope.route.steps[i].end_location.lng())
+                            
+                        
+                            stepcounter = stepcounter + 1; 
+                            console.log("step distance " + $scope.stepdistance)
+                    }
 
-            console.log("distance covered: " + $scope.routedistance)
- //console.log("path overview: " + $scope.overview);
-            console.log("path bounds: " + $scope.bounds)
+                    $scope.startlatlng = $scope.route.steps[1].start_location;
+                    $scope.routedistance = $scope.directionResult.routes[0].legs[0].distance.value;     
 
-            directionsDisplay.setMap($scope.map);
-            directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+// checks if user is within or out of bounds 
+                    $scope.polyline = new google.maps.Polyline({ path: $scope.overview});
+                    console.log("route polyline: " + $scope.polyline)
 
-        }; // end walkingSteps
+                    $scope.onpolyInner = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-7)
+                    $scope.onpolyOuter = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-5)
+                    
+                    if($scope.onpolyOuter){
+                        $scope.withouter = "within outer bounds"; 
+                    }if ($scope.onpolyInner){
+                        $scope.withinner= "within inner bounds"; 
+                    }
 
-// call the google matrix api somehwere here to see distance travelled based on your startLoc and your current LatLng
+                    if($scope.onpolyInner == false){
 
-    //     function amInear() {
+                        console.log("you have left the inner bounds");
+                              // Vibrate test
+                        navigator.vibrate(500);
 
+                        // or with more options
+                        TTS
+                            .speak({
+                                text: 'You are outside inner bounds',
+                                locale: 'en-GB',
+                                rate: 1.5
+                            }, function () {
+                                alert('success');
+                            }, function (reason) {
+                                alert(reason);
+                            });
 
-    // console.log("line169 " + $scope.startlatlng.lat())
-    //         var tmpdelta= Math.abs($scope.startlatlng.lat() - $scope.mylat);
-    // console.log("line171 " + tmpdelta)       
-    //         $scope.delta = tmpdelta.toFixed(5);
+                        if($scope.onpolyOuter == false){
+                            console.log("you have left the outer bounds");
+                                // Vibrate test
+                            navigator.vibrate(500);
+                            navigator.vibrate(500);
+                            // or with more options
+                            TTS
+                                .speak({
+                                    text: 'You are outside outer bounds!',
+                                    locale: 'en-GB',
+                                    rate: 1.5
+                                }, function () {
+                                    alert('success');
+                                }, function (reason) {
+                                    alert(reason);
+                                });
+                            }
 
-    //         console.log("lat of first marker: " + $scope.startlatlng.lat())
-    //         console.log("lat of me: " + $scope.mylat )
-    //         console.log("difference between me and marker: " + $scope.delta)
-            
-    //         if( $scope.delta > 0.0001){
-    //             return $scope.isnear = true;
-    //         }else{
-    //             return $scope.isnear = false;
-    //         }
-        
-    //     };
+                    } // if not within inner bounds 
+
+                    // loop through instructions after pass of each end marker 
+ 
+                oldLatLng = $scope.myLatLng 
+                } // end watch do 
+           
+            ); // end watch then
+
+        } // end when device ready 
+
 });

@@ -4,7 +4,7 @@ angular.module('app.controllers').controller('activitySettingsCtrl', function( $
 	$scope.routeList = [
 	  { name: "Mile End Road Test",
 	    startLoc: "51.523045, -0.039911", 
-	    endLoc: "51.522503, -0.041855" , 
+	    endLoc: "s" , 
 	  }, 
 
 	  { name: "Mile End Park Loop",
