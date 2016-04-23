@@ -1,46 +1,54 @@
 <ion-view title="Activity List">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
 	    <center><h3>List of previous activities</h3></center>
-	<div ng-controller="firebaseCtrl" ng-init="profile()">
-		        <div> 
-			        <div ng-repeat="activity in profile.activities" class ="item">
-			        	{{ activity.distance }}
-			        </div> 
-		    	</div> 
+		<div ng-controller="firebaseCtrl" ng-init="profile()">
+			        <div> 
+				        <div ng-repeat="activity in profile.activities" class ="item">
+				        	{{ activity.date }}: {{ activity.distance }} : {{ activity.calburn}}
+				        </div> 
+			    	</div> 
+
+		</br> 
+		<center><h3>add new activity </h3></center>
+		    <ion-list>
+
+		        <label class="item item-input" name="activity_distance">
+		            <span class="input-label">distance</span>
+		            <input ng-model="act_date" type="text" placeholder="date" >
+		        </label>
+
+		        <label class="item item-input" name="activity_distance">
+		            <span class="input-label">distance</span>
+		            <input ng-model="act_dist" type="text" placeholder="distance" >
+		        </label>
+
+		        <label class="item item-input" name="activity_time">
+		            <span class="input-label">time taken</span>
+		            <input ng-model="act_time" type="text" placeholder="time taken" >
+		        </label>
+
+		        <label class="item item-input" name="activity_pace">
+		            <span class="input-label">pace</span>
+		            <input ng-model="act_pace" type="text" placeholder="pace" >
+		        </label>
+
+		        <label class="item item-input" name="activity_calburnput">
+		            <span class="input-label">calburn</span>
+		            <input ng-model="act_calburn" type="text" placeholder="calburn" >
+		        </label>   
+
+		    </ion-list>
+				
+			</br>
+			<center><button ng-click="create()" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" >Add new activity</button></center>
+			</br>
 
 
-</br> 
-	    <center><h3>add new activity </h3></center>
-	    <ion-list>
-
-	        <label class="item item-input" name="activity_distance">
-	            <span class="input-label">distance</span>
-	            <input ng-model="act_dist" type="text" placeholder="distance" >
-	        </label>
-
-	        <label class="item item-input" name="activity_time">
-	            <span class="input-label">time</span>
-	            <input ng-model="act_time" type="text" placeholder="time" >
-	        </label>
-
-	        <label class="item item-input" name="activity_pace">
-	            <span class="input-label">pace</span>
-	            <input ng-model="act_pace" type="text" placeholder="pace" >
-	        </label>
-
-	        <label class="item item-input" name="activity_calburnput">
-	            <span class="input-label">calburn</span>
-	            <input ng-model="act_calburn" type="text" placeholder="calburn" >
-	        </label>   
-
-	    </ion-list>
-			
-			</br><button ng-click="create()" style="left:-10px;font-weight:600;" class="button button-positive button-block button-large">Add new activity</button></br>
+		</div> 
+    </ion-content>
+</ion-view>
 
 
-	</div> 
-
-		</br>
 <!-- 	        <div ng-controller="activityListCtrl"> 
 		        <ion-list>
 		            <ion-item ui-sref="tabsController.activity1Details" ng-repeat="activity in actlist"> 
@@ -50,5 +58,4 @@
 		        </ion-list>
 	    	</div>  -->
    
-    </ion-content>
-</ion-view>
+

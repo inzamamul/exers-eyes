@@ -4,7 +4,7 @@ angular.module('app.controllers').controller('activitySettingsCtrl', function( $
 	$scope.routeList = [
 	  { name: "Mile End Road Test",
 	    startLoc: "51.523045, -0.039911", 
-	    endLoc: "s" , 
+	    endLoc: "51.522503, -0.041855" , 
 	  }, 
 
 	  { name: "Mile End Park Loop",
@@ -12,32 +12,76 @@ angular.module('app.controllers').controller('activitySettingsCtrl', function( $
 	    endLoc: "51.518631, -0.035189" , 
 	  }, 
 
-	    {   name: "Victoria Park Loop",
+	  { name: "Victoria Park Loop",
 	    startLoc: "51.523412, -0.036398", 
 	    endLoc: "51.533408, -0.041382" , 
 	  }, 
 
-	    {   name: "Hyde Park Loop",
+	  { name: "Hyde Park Loop",
 	    startLoc: "51.511339, -0.171213" , 
 	    endLoc: "51.505709, -0.152313" , 
 	  }, 
 
-	    {   name: "Regents Park Loop",
+	  { name: "Regents Park Loop",
 	    startLoc: "51.534865, -0.158828" , 
 	    endLoc: "51.525436, -0.146639" , 
 	  }, 
 
-	    {   name: "Greenwich Park Loop",
+	  { name: "Greenwich Park Loop",
 	    startLoc: "51.479586, -0.006624" , 
 	    endLoc: "51.473982, 0.004455" , 
 	  }, 
 
-	    {   name: "Battersea Park Loop",
+	  { name: "Battersea Park Loop",
 	    startLoc: "51.478313, -0.149929" , 
 	    endLoc: "51.481011, -0.158304" , 
-	  }, 
-	  ];	
+	  }, 	 
 
+	  { name: "The Hague Short Test",
+	    startLoc: "52.095090, 4.364201", 
+	    endLoc: "52.094756, 4.364903" , 
+	  },
+
+	  { name: "The Hague Long Test",
+	    startLoc: "52.095131, 4.364248", 
+	    endLoc: "52.100507, 4.365261" , 
+	  },
+
+	  {	name: "Virgin Money London Marathon",
+	    startLoc: "51.478313, -0.149929" , 
+	    endLoc: "51.481011, -0.158304" , 
+	  },
+
+	  { name: "BMW Berlin Marathon",
+	    startLoc: "51.543963, -0.032926", 
+	    endLoc: "51.518631, -0.035189" , 
+	  }, 
+
+	  { name: "New York City Marathon",
+	    startLoc: "51.523412, -0.036398", 
+	    endLoc: "51.533408, -0.041382" , 
+	  }, 
+
+      { name: "Boston Marathon",
+	    startLoc: "51.511339, -0.171213" , 
+	    endLoc: "51.505709, -0.152313" , 
+	  }, 
+
+	  { name: "Tokyo Marathon",
+	    startLoc: "51.534865, -0.158828" , 
+	    endLoc: "51.525436, -0.146639" , 
+	  }, 
+
+	  { name: "Rotterdam Marathon",
+	    startLoc: "51.479586, -0.006624" , 
+	    endLoc: "51.473982, 0.004455" , 
+	  }, 
+
+	  { name: "Amsterdam Marathon",
+	    startLoc: "51.478313, -0.149929" , 
+	    endLoc: "51.481011, -0.158304" , 
+	  }
+	  ];	
 	  $scope.chosenroute = { choice: 'Select a route!' }
 
 // Once the user clicks the button "Ready? Lets Go!"

@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 
 // this is the "constructor" of the angular app - load dependencies of the app here 
-angular.module('app', ['ionic','firebase', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage', 'lokijs'])
+angular.module('app', ['ionic','firebase', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

@@ -1,7 +1,8 @@
 // Controller for Activity Completed (when the user has finished the activity)
 angular.module('app.controllers').controller('firebaseCtrl', function($scope, $state, $firebaseAuth, $firebaseObject, $ionicPopup) {
 
-var fbase = new Firebase('https://exers-eyes.firebaseio.com/');
+var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes firebase can be found here 
+
 
      $scope.login = function(login_username, login_password) {
         var fbaseAuth = $firebaseAuth(fbase);
