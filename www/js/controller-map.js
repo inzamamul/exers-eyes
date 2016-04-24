@@ -346,13 +346,15 @@ angular.module('app.controllers').controller('MapController', function($scope, $
             $rootScope.timeTaken = elapsedTimeF
             $rootScope.avgPace = pace
             $rootScope.calburn = cburn
-                
+            
+            dateStart = 0
+            dateEnd = 0 
+            elapsedTime = 0 
+            pace = 0 
+
+            $scope.startLatLng = 0
             $state.go('activityCompleted')  
 
-        dateStart = 0
-        dateEnd = 0 
-        elapsedTime = 0 
-        pace = 0 
         }
 
 });

@@ -41,7 +41,7 @@ angular.module('app.controllers', [])
 		            locale: 'en-GB',
 		            rate: 1.5
 		        }, function () {
-		            alert('success');
+		        	console.log("sucess")
 		        }, function (reason) {
 		            alert(reason);
 		        });
