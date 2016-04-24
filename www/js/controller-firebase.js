@@ -1,5 +1,5 @@
 // Controller for Activity Completed (when the user has finished the activity)
-angular.module('app.controllers').controller('firebaseCtrl', function($scope, $state, $firebaseAuth, $firebaseObject, $ionicPopup) {
+angular.module('app.controllers').controller('firebaseCtrl', function($scope, $cordovaVibration, $state, $firebaseAuth, $firebaseObject, $ionicPopup) {
 
 var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes firebase can be found here 
 
@@ -10,8 +10,15 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
             password: login_password
         }).then(function(authData) {
             $state.go('tabsController.dashboard')
+
+            // Vibrate showing logged in successfully
+            document.addEventListener('deviceready', function () {
+           
+                navigator.vibrate(100);
+            }, false);  
+
             console.log("sucessfully logged in! ")
-                      
+            
         }).catch(function(error) {
             console.error("LOGIN ERROR: " + error);
             
@@ -31,6 +38,10 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
                 password: login_password
             });
         }).then(function(authData) {
+            // Vibrate showing registered in successfully
+            document.addEventListener('deviceready', function () {  
+                navigator.vibrate([100]);
+            }, false);  
             $state.go("tabsController.settings");
         }).catch(function(error) {        
             var alertPopup = $ionicPopup.alert({

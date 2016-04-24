@@ -4,7 +4,7 @@
 angular.module('app.controllers').controller('socialCtrl', function($scope, $cordovaSocialSharing){
 
     $scope.shareActivity = function() {
-        $cordovaSocialSharing.share("I just completed an activity on ExersEyes!", "Completed and Actitvity");
+        $cordovaSocialSharing.share("Hey! I just burned " + $rootScope.calburn+"calories with an activity of on ExersEyes!", "Completed an Actitvity");
         
         $scope.showAlert = function() {
             var justshared = $ionicPopup.alert({
@@ -14,12 +14,4 @@ angular.module('app.controllers').controller('socialCtrl', function($scope, $cor
         }
     }
  
-    // $scope.shareViaTwitter = function(message, image, link) {
-    //     $cordovaSocialSharing.canShareVia("twitter", message, image, link).then(function(result) {
-    //         $cordovaSocialSharing.shareViaTwitter(message, image, link);
-    //     }, function(error) {
-    //         alert("Cannot share on Twitter");
-    //     });
-    // }
-
 });

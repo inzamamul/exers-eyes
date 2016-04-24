@@ -7,11 +7,17 @@ angular.module('app.controllers').controller('settingsCtrl', function($scope, $r
 
       $rootScope.masteruser= angular.copy(user);
       
+      document.addEventListener('deviceready', function () {
+      
+      navigator.vibrate(100);
+	    
       var alertPopup = $ionicPopup.alert({
-            title: 'Settings updated',
-            template: "Your settings have been updated." 
-            });      
+	    title: 'Settings updated',
+	    template: "Your settings have been updated." 
+	    });      
+	       
+      }, false);  
+
    }
- 
 
 }) // End Settings Controller

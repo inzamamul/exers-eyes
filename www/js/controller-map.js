@@ -23,7 +23,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
     var oldtime = 0 
     var t_distance = 0.0
     var dateStart = new Date()
-// need to get this from settings         
+      
 
         //calculate route        
         calculateRoute(directionsService, directionsDisplay);
@@ -131,7 +131,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                 console.log("distance between me and start" + StartMeDelta)
                 if(StartMeDelta > t_distance){
 
-                        navigator.vibrate(500);
+                        navigator.vibrate([50,50]);
                       var alertDistanceFar = $ionicPopup.alert({
                         title: 'Not near start location!',
                         template: 'Get near starting location to begin timer!'
@@ -173,7 +173,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
 
 // watching latlong
             var watchOptions = {
-                frequency : 2000, 
+                frequency : 3000, 
                 timeout : 100000, 
                 maximumAge: 3600000,// 
                 enableHighAccuracy: false // may cause errors if true
@@ -236,14 +236,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                     console.log("distance between me and start" + StartMeDelta)
                     if(StartMeDelta > t_distance){
 
-                        navigator.vibrate(500);
-                        var alertDistanceFar = $ionicPopup.alert({
-                            title: 'Not near start location!',
-                            template: 'Get near starting location to begin timer!'
-                        });
-                            alertDistanceFar.then(function(res) {
-                            console.log('user alerted');
-                        });
+                        navigator.vibrate(50);
                     }else{
     // Starts the date for the timer
                         var dateStart = new Date();
@@ -288,8 +281,8 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                             console.log("you have left the outer bounds");
                             
                             // Vibrate twice to indicate out of outerbounds
-                            navigator.vibrate(500);
-                            navigator.vibrate(500);
+                            navigator.vibrate([100, 500]);
+                           
                             TTS
                                 .speak({
                                     text: 'You are outside outer bounds!',
