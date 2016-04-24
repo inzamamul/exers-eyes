@@ -38,7 +38,7 @@ angular.module('app.controllers', [])
 		    // or with more options
 		    TTS
 		        .speak({
-		            text: 'You a lil bitch!',
+		            text: 'This audio feedbackl!',
 		            locale: 'en-GB',
 		            rate: 1.5
 		        }, function () {

@@ -4,7 +4,8 @@
 		<div ng-controller="firebaseCtrl" ng-init="profile()">
 			        <div> 
 				        <div ng-repeat="activity in profile.activities" class ="item">
-				        	{{ activity.date }}: {{ activity.distance }} : {{ activity.calburn}}
+				        	{{ activity.date }} || {{ activity.distance }}m || {{ activity.calburn}} Cal
+				        	
 				        </div> 
 			    	</div> 
 
@@ -14,17 +15,12 @@
 
 		        <label class="item item-input" name="activity_distance">
 		            <span class="input-label">distance</span>
-		            <input ng-model="act_date" type="text" placeholder="date" >
-		        </label>
-
-		        <label class="item item-input" name="activity_distance">
-		            <span class="input-label">distance</span>
-		            <input ng-model="act_dist" type="text" placeholder="distance" >
+		            <input ng-model="act_dist" type="number" placeholder="distance" >
 		        </label>
 
 		        <label class="item item-input" name="activity_time">
 		            <span class="input-label">time taken</span>
-		            <input ng-model="act_time" type="text" placeholder="time taken" >
+		            <input ng-model="act_time" type="number" placeholder="time taken" >
 		        </label>
 
 		        <label class="item item-input" name="activity_pace">
@@ -34,13 +30,13 @@
 
 		        <label class="item item-input" name="activity_calburnput">
 		            <span class="input-label">calburn</span>
-		            <input ng-model="act_calburn" type="text" placeholder="calburn" >
+		            <input ng-model="act_calburn" type="number" placeholder="calburn" >
 		        </label>   
 
 		    </ion-list>
 				
 			</br>
-			<center><button ng-click="create()" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" >Add new activity</button></center>
+			<center><button ng-click="createActivity()" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" >Add new activity</button></center>
 			</br>
 
 

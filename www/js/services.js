@@ -9,6 +9,15 @@
 
 angular.module('app.services', [])
 
+
+// .factory("Activities", function($firebaseArray){
+
+//   var auth = "addc-fddb-4bda-8e8e-727196ee33d7"
+//   var activitiesRef = new Firebase("https://exers-eyes.firebaseio.com/users/"+ auth +"/profile/activities")
+//   return $firebaseArray(activitiesRef);
+// })
+
+
 // AngularJS Service for local storage
 .factory('$localstorage', ['$window', function($window) {
   return {

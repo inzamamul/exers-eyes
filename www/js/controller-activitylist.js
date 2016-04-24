@@ -1,5 +1,6 @@
 angular.module('app.controllers').controller('activityListCtrl', function($scope, $firebaseObject, $ionicPopup) {
 
+
     // $scope.list = function() {
 
     // fbaseAuth = $fbase.getAuth(); 

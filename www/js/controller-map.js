@@ -1,6 +1,6 @@
 //Adapted from http://www.gajotres.net/using-cordova-geoloacation-api-with-google-maps-in-ionic-framework/
  
-angular.module('app.controllers').controller('MapController', function($scope,  $rootScope, $state, $cordovaGeolocation, $ionicLoading, $cordovaVibration) { 
+angular.module('app.controllers').controller('MapController', function($scope,  $rootScope, $state, $cordovaGeolocation, $ionicPopup,  $ionicLoading, $cordovaVibration) { 
  // initialise vars      
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
@@ -21,9 +21,11 @@ angular.module('app.controllers').controller('MapController', function($scope,  
     var pace = 0
     var time = 0
     var oldtime = 0 
+    var t_distance = 0.0
 // need to get this from settings         
     $scope.weight = 70
     $scope.time = 720 
+
 
         //calculate route        
         calculateRoute(directionsService, directionsDisplay);
@@ -31,9 +33,13 @@ angular.module('app.controllers').controller('MapController', function($scope,  
 
         function calculateRoute(directionsService, directionsDisplay){
 
-            console.log("routestart at: " + $rootScope.routestart + " route end at: " + $rootScope.routeend)
+            console.log("Map: routestart at: " + $rootScope.routestart + " route end at: " + $rootScope.routeend)
             start = "51.523045, -0.039911"
             end = "51.522503, -0.041855"
+            
+            start = $rootScope.routestart
+            end = $rootScope.routeend
+
             console.log("routestart at: " +  + " route end at: " + $rootScope.routeend)
 
             startLat = start.split(",")[0];
@@ -120,24 +126,23 @@ angular.module('app.controllers').controller('MapController', function($scope,  
                 
                 oldLatLng = $scope.myLatLng
 
-// // if location is not nearby start point of the route  
+// Alerts the user if they are not near the start latlng 
+                t_distance = 5.0
+                var StartMeDelta = google.maps.geometry.spherical.computeDistanceBetween($scope.myLatLng, $scope.startLatLng)
 
-//                 var service = new google.maps.DistanceMatrixService; 
-//                 service.getDistanceMatrix({
-//                     origins: start, 
-//                     destinations: end, 
-//                     travelModel: google.maps.TravelMode.WALKING, 
-//                     unitSystem: google.maps.UnitSystem.METRIC, 
-//                 }, function(response, status) {
-//                     if(status !== google.maps.DistanceMatrixStatus.OK){
-//                         alert('there was an error'); 
-//                     }else{
-//                         $scope.startDistance = response.originAddresses; 
-//                     }
-//                 })
-//                 console.log("ifnearstartloc: " + $scope.startDistance)
+                console.log("distance between me and start" + StartMeDelta)
+                if(StartMeDelta > t_distance){
 
-// ////
+                        navigator.vibrate(500);
+                      var alertDistanceFar = $ionicPopup.alert({
+                        title: 'Not near start location!',
+                        template: 'Get near starting location to begin timer!'
+                      });
+                      alertDistanceFar.then(function(res) {
+                        console.log('user alerted');
+                      });
+                }
+
                 var mapOptions = {
                     center: $scope.myLatLng,
                     zoom: 15,

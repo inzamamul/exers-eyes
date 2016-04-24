@@ -3,7 +3,8 @@
         <div>
             <center>
                 <h2>Congratulations on your activity {{ fname }}!</h2>
-            
+                <div ng-init="apple=[{},{},{},{},{},{},{},{},{},{}]"></div>
+                <div ng-repeat="x in apple">porn</div>
    
                 <h3>Distance travelled: {{ distanceTravelled }} m</h3></br> 
              
@@ -12,8 +13,8 @@
                 <h3 class="center">Elapsed Time: {{ timeTaken }} </h3>
                     
                 
-                    <h3>Average Pace: {{ avgPace }} km/min </h3></br> 
-                    <h3>Calories Burned: {{ calburn }} calories</h3>
+                <h3>Average Pace: {{ avgPace }} km/min </h3></br> 
+                <h3>Calories Burned: {{ calburn }} calories</h3>
                     
                 </div>
             </center>
@@ -24,7 +25,7 @@
         </div> 
 
         <div ng-controller="firebaseCtrl">
-            <button ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full" ng-click="submitActivity()">Tap here to complete activity</button>
+            <button ui-sref="tabsController.activityList" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-right ion-ios-arrow-forward button-full" ng-click="createActivity()">Tap here to complete activity</button>
         </div> 
     </ion-content>
 </ion-view>

@@ -3,7 +3,6 @@ angular.module('app.controllers').controller('firebaseCtrl', function($scope, $s
 
 var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes firebase can be found here 
 
-
      $scope.login = function(login_username, login_password) {
         var fbaseAuth = $firebaseAuth(fbase);
         fbaseAuth.$authWithPassword({
@@ -22,7 +21,7 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
             });             
 
         });
-    }
+    };
  
     $scope.register = function(login_username, login_password) {
         var fbaseAuth = $firebaseAuth(fbase);
@@ -36,26 +35,26 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
         }).catch(function(error) {
             console.error("ERROR " + error);
         });
-    }
+    };
 
     $scope.logout = function() {
-
+    var fbaseAuth = $firebaseAuth(fbase);
         $scope.profile = []; 
         fbase.unauth();
         $state.go('login');
         console.log("successfully logged out. ")
 
-    }
+    };
 
     $scope.profile = function() {
-
+    var fbaseAuth = $firebaseAuth(fbase);
     fbaseAuth = fbase.getAuth(); 
         if(fbaseAuth){
             var syncObject = $firebaseObject(fbase.child("users/" + fbaseAuth.uid + "/profile/"));
             syncObject.$bindTo($scope, "profile");
         }
 
-    }
+    };
 
     // $scope.userdetails = function() {
 
@@ -67,45 +66,79 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
 
     // }
 
-    $scope.create = function() { 
+    $scope.createActivity = function() { 
 
-        $ionicPopup.prompt({
-                title: 'Enter a new activity item',
-                inputType: 'text'
-            })
-            .then(function(result) {
-                if(result !== "") {
-                    if($scope.profile.hasOwnProperty("activities") !== true) {
-                        $scope.profile.activities = [];
-                    }
-                    $scope.profile.activities.push({distance: result});
+        if($scope.profile.hasOwnProperty("activities") !== true){
+                $scope.profile.activities = [];
+                addactivity();
+                console.log("Activity saved to FBase database. ");
+                
+        }else if($scope.profile.hasOwnProperty("activities") == true) {
+                addactivity();
+                console.log("Activity saved to FBase database. ");
+                
+        }else{
+            console.log("Activity not saved to FBase database. ");
+
+        }
+        
+        function addactivity() {
+            $scope.profile.activities.push({
+
+                "date" : new Date().toDateString(),
+                "distance" :  $scope.act_dist,
+                "timetaken" : $scope.act_time, 
+                "pace" : $scope.act_pace, 
+                "calburn" : $scope.act_calburn
+
+            }, function(error){
+                if(error){
+                    console.log("There was an error in setting user details ")
                 } else {
-                    console.log("Activity not saved to FBase database. ");
+                    console.log("User details updated successfully")
                 }
             });
-
+        }
+      
     };
 
-    $scope.saveDetails = function(){
+        function saveDetails(){
 
+        if($scope.profile.hasOwnProperty("details") !== true){
+            $scope.profile.details = [];
+            setUserDetails();
+            console.log("Details have been saved to FBase database. ");
+            
+        }else if($scope.profile.hasOwnProperty("details") == true) {
+            setUserDetails();
+            console.log("Details have been saved to FBase database. ");
+            
+        }else{
+            console.log("Details not saved to FBase database. ");
 
+        }
+        
+        function setUserDetails() {
+        
+  //      var settingdetails = $firebaseObject(fbase.child("users/" + fbaseAuth.uid + "/profile/details"));
+        var settingdetails = $scope.profile.child("details");
 
-       $ionicPopup.prompt({
-                title: 'Enter your name',
-                inputType: 'text'
-            })
-            .then(function(result) {
-                if(result !== "") {
-                    if($scope.profile.hasOwnProperty("details") !== true) {
-                        $scope.profile.details = [];
-                    }
-                    $scope.profile.details.push({name: result, age: 20, height: 165, weight: 70});
-                    console.log("pushed details to new tuple: " + $scope.profile)
+            settingdetails.set({
+
+                "fname" : $scope.user.fname,
+                "lname" :  $scope.user.lname,
+                "age" : $scope.user.age, 
+                "weight" : $scope.user.weight, 
+                "height" : $scope.user.height
+
+            }, function(error){
+                if(error){
+                    console.log("There was an error in setting user details ")
                 } else {
-                    console.log("Details not saved to FBase database. ");
+                    console.log("User details updated successfully")
                 }
             });
-
+        }
     };
 	
 });
