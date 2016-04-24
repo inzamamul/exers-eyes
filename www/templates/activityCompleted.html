@@ -2,17 +2,11 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activityCompletedCtrl">
         <div>
             <center>
-                <h2>Congratulations on your activity {{ fname }}!</h2>
-                <div ng-init="apple=[{},{},{},{},{},{},{},{},{},{}]"></div>
-                <div ng-repeat="x in apple">porn</div>
-   
-                <h3>Distance travelled: {{ distanceTravelled }} m</h3></br> 
-             
-                <!-- stopwatch test below -->
-                
-                <h3 class="center">Elapsed Time: {{ timeTaken }} </h3>
-                    
-                
+
+                <h2>Congratulations on your activity {{ masteruser.fname }}!</h2>
+
+                <h3>Distance travelled: {{ distanceTravelled  }} m</h3>
+                <h3>Elapsed Time: {{ timeTaken }} </h3>
                 <h3>Average Pace: {{ avgPace }} km/min </h3></br> 
                 <h3>Calories Burned: {{ calburn }} calories</h3>
                     

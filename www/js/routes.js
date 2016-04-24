@@ -2,10 +2,7 @@ angular.module('app.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
+  // Configure up the various states which the app can be in.
   
   $stateProvider
 
@@ -105,7 +102,7 @@ angular.module('app.routes', [])
     controller: 'firebaseCtrl'
   })
 
+// Set default to Login > this is where the user will be directed when they first open the app. 
 $urlRouterProvider.otherwise('/login')
-
 
 });

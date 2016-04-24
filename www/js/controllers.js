@@ -7,25 +7,24 @@ angular.module('app.controllers', [])
 // Dashboard Controller (main "homepage")
 .controller('dashboardCtrl', function($scope,  $rootScope, $localstorage, $cordovaVibration) {
 
-	$scope.getUser = function() {
+	// $scope.getUser = function() {
 
-		if($rootScope.fname == $localstorage.get('fname')){
-		$rootScope.fname = $localstorage.get('fname');
+	// 	if($rootScope.fname == $localstorage.get('fname')){
+	// 	$rootScope.fname = $localstorage.get('fname');
 
-		}else{
+	// 	}else{
 
-		$rootScope.fname = $localstorage.get('fname');
-		}
-		// console.log("dash: " + $rootScope.fname)
-	}
+	// 	$rootScope.fname = $localstorage.get('fname');
+	// 	}
+	// 	// console.log("dash: " + $rootScope.fname)
+	// }
 
-	$rootScope.$on('$stateChangeStart', 
-	function(event, toState, toParams, fromState, fromParams, options){ 
-		if(toState.name =='tabsController.dashboard')
-			$scope.getUser()
-	})
-	$scope.getUser()
-
+	// $rootScope.$on('$stateChangeStart', 
+	// function(event, toState, toParams, fromState, fromParams, options){ 
+	// 	if(toState.name =='tabsController.dashboard')
+	// 		$scope.getUser()
+	// })
+	// $scope.getUser()
 
 	$scope.tester = function() { 
 		console.log("button clicked :)")
@@ -38,7 +37,7 @@ angular.module('app.controllers', [])
 		    // or with more options
 		    TTS
 		        .speak({
-		            text: 'This audio feedbackl!',
+		            text: 'Audio Test',
 		            locale: 'en-GB',
 		            rate: 1.5
 		        }, function () {

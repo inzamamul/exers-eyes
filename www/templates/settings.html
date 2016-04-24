@@ -1,4 +1,4 @@
-<ion-view title="Settings">
+<ion-view title="Settings" ng-init="profile()">
 
         <ion-content overflow-scroll="true" padding="true" class="has-header">
 
@@ -8,7 +8,7 @@
                 
                 <label class="item item-input" name="first-name">
                     <span class="input-label">First Name</span>
-                    <input type="text"  ng-model="user.fname">
+                    <input type="text" ng-model="user.fname">
                 </label>
            
                 <label class="item item-input" name="last-name">
@@ -34,16 +34,17 @@
                 </label>
             </ion-list>
 
-
     </br> 
     </br> 
 
-        <div ng-controller="firebaseCtrl" ng-init="profile()">    
-            <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-arrow-right-b button-full" ng-click="saveDetails()">Save Details</button>
-            
+    <div ng-controller="firebaseCtrl">
+        <div>   
+            <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-arrow-right-b button-full" ng-click="updateSettings(user)">Save Details</button>
+            </br>
             <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-log-out button-full" ng-click="logout()">Log Out</button>
         </div> 
 
+    </div> 
         </ion-content>
 
     </body> 

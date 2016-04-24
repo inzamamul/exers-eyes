@@ -10,13 +10,14 @@
     </div> 
     </br> 
 
-       	<h2 class="center" ng-model="getUser">Welcome back {{ fname }}!</h3>
-            
+        <div ng-controller="firebaseCtrl">
+       	<h2 class="center" ng-model="getUser">Welcome {{ masteruser.fname }}!</h3>
+        </div> 
     </br> 
 
         <button ui-sref="activitySettings" style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full">Lets Begin!</button>
 
-        <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" ng-click="tester()">audio and vibrate test</button>
+        <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large button-full" ng-click="tester()">Audio Test</button>
     
     
     </ion-content>

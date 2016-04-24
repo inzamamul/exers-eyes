@@ -4,7 +4,7 @@
 angular.module('app.controllers').controller('socialCtrl', function($scope, $cordovaSocialSharing){
 
     $scope.shareActivity = function() {
-        $cordovaSocialSharing.share("I just completed an activity on ExersEyes!", "Completed and Actitvity", "www/img/exerseyes.png", "www.eecs.qmul.ac.uk");
+        $cordovaSocialSharing.share("I just completed an activity on ExersEyes!", "Completed and Actitvity");
         
         $scope.showAlert = function() {
             var justshared = $ionicPopup.alert({

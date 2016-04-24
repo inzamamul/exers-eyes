@@ -68,6 +68,38 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
 
     $scope.createActivity = function() { 
 
+    function addactivity(){
+
+            var today = new Date(); 
+            var day = today.getDate();
+            var month = today.getMonth()+1; 
+            var year = today.getFullYear()
+
+            if(day<10){
+                day = "0"+day
+            }
+            if(month<10){
+                month = "0" + month
+            }
+            var today = day+'/'+month+'/'+year      
+
+            $scope.profile.activities.push({
+
+                "date" : today,
+                "distance" :  $scope.act_dist,
+                "timetaken" : $scope.act_time, 
+                "pace" : $scope.act_pace, 
+                "calburn" : $scope.act_calburn
+
+            }, function(error){
+                if(error){
+                    console.log("There was an error in setting user details ")
+                } else {
+                    console.log("User details updated successfully")
+                }
+            });
+        }
+
         if($scope.profile.hasOwnProperty("activities") !== true){
                 $scope.profile.activities = [];
                 addactivity();
@@ -82,27 +114,11 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
 
         }
         
-        function addactivity() {
-            $scope.profile.activities.push({
 
-                "date" : new Date().toDateString(),
-                "distance" :  $scope.act_dist,
-                "timetaken" : $scope.act_time, 
-                "pace" : $scope.act_pace, 
-                "calburn" : $scope.act_calburn
-
-            }, function(error){
-                if(error){
-                    console.log("There was an error in setting user details ")
-                } else {
-                    console.log("User details updated successfully")
-                }
-            });
-        }
       
     };
 
-        function saveDetails(){
+    $scope.saveDetails = function(){
 
         if($scope.profile.hasOwnProperty("details") !== true){
             $scope.profile.details = [];
@@ -118,7 +134,7 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
 
         }
         
-        function setUserDetails() {
+        $scope.setUserDetails = function() {
         
   //      var settingdetails = $firebaseObject(fbase.child("users/" + fbaseAuth.uid + "/profile/details"));
         var settingdetails = $scope.profile.child("details");
@@ -131,13 +147,14 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
                 "weight" : $scope.user.weight, 
                 "height" : $scope.user.height
 
-            }, function(error){
-                if(error){
-                    console.log("There was an error in setting user details ")
-                } else {
-                    console.log("User details updated successfully")
-                }
-            });
+            })
+            // }, function(error){
+            //     if(error){
+            //         console.log("There was an error in setting user details ")
+            //     } else {
+            //         console.log("User details updated successfully")
+            //     }
+            // });
         }
     };
 	

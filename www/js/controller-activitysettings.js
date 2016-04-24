@@ -1,5 +1,5 @@
 // Activty Settings Controller (contains the settings used by the user when they inititate activity)      
-angular.module('app.controllers').controller('activitySettingsCtrl', function( $scope,$rootScope, $state, $ionicPopup, RouteFactory) {
+angular.module('app.controllers').controller('activitySettingsCtrl', function( $scope,$rootScope, $state, $ionicPopup) {
 		   
 	$scope.routeList = [
 	  { name: "Mile End Road Test",

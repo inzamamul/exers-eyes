@@ -1,6 +1,6 @@
 //Adapted from http://www.gajotres.net/using-cordova-geoloacation-api-with-google-maps-in-ionic-framework/
  
-angular.module('app.controllers').controller('MapController', function($scope,  $rootScope, $state, $cordovaGeolocation, $ionicPopup,  $ionicLoading, $cordovaVibration) { 
+angular.module('app.controllers').controller('MapController', function($scope, $rootScope, $state, $cordovaGeolocation, $ionicPopup,  $ionicLoading, $cordovaVibration) { 
  // initialise vars      
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
@@ -22,10 +22,8 @@ angular.module('app.controllers').controller('MapController', function($scope,  
     var time = 0
     var oldtime = 0 
     var t_distance = 0.0
+    var dateStart = 0 
 // need to get this from settings         
-    $scope.weight = 70
-    $scope.time = 720 
-
 
         //calculate route        
         calculateRoute(directionsService, directionsDisplay);
@@ -141,6 +139,10 @@ angular.module('app.controllers').controller('MapController', function($scope,  
                       alertDistanceFar.then(function(res) {
                         console.log('user alerted');
                       });
+                }else{
+// Starts the date for the timer
+                    var dateStart = new Date();
+                    console.log("date logged for timer" + dateStart)
                 }
 
                 var mapOptions = {
@@ -237,10 +239,12 @@ angular.module('app.controllers').controller('MapController', function($scope,  
                     $scope.onpolyInner = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-7)
                     $scope.onpolyOuter = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-5)
                     
-                    if($scope.onpolyOuter){
-                        $scope.withouter = "within outer bounds"; 
-                    }if ($scope.onpolyInner){
-                        $scope.withinner= "within inner bounds"; 
+                    if($scope.onpolyInner && $scope.onpolyOuter){
+                        $scope.boundmessage = "within inner and outerbounds"; 
+                    }else if(!$scope.onpolyInner && $scope.onpolyOuter){
+                        $scope.boundmessage = "within outer bounds"; 
+                    }else{
+                        $scope.boundmessage = "not within either inner or outer bounds"; 
                     }
 
                     if($scope.onpolyInner == false){
@@ -293,7 +297,8 @@ angular.module('app.controllers').controller('MapController', function($scope,  
         // returns the calories burnt by user 
         function CBurn(distance) {
 
-            weight = $scope.weight
+            weight = 75
+            weight = $rootScope.weight
 
             distance = distance / 1000 // distance in km
             //time in hours 
@@ -321,13 +326,27 @@ angular.module('app.controllers').controller('MapController', function($scope,  
 
         $scope.sendinfo = function() {
 
+        weight = $rootScope.masteruser.weight
+        var dateEnd = new Date();
 
-            // need to reset all values after submitting
+        var deltaDate = dateEnd - $rootScope.dateStart;
+        console.log("delta date: " + deltaDate)
 
-            $rootScope.distanceTravelled = $scope.distTravelled
-            $rootScope.timeTaken = $scope.time
-            $rootScope.avgPace = $scope.avgpace
-            $rootScope.calburn = $scope.totalcb
+        var elapsedTime = Math.abs(deltaDate) / 360000
+        console.log("Elapsed Time: " + elapsedTime)
+
+        var distOfTravel = $scope.distTravelled / 1000
+        console.log("Distance travelled: " + distOfTravel)
+        // need to reset all values after submitting
+
+        var pace = distOfTravel/elapsedTime // pace in kmh
+
+        var cburn = ((0.0215 * Math.pow(3, pace)- (0.1765 * Math.pow(2, pace)) + (0.8710 * pace) + 1.4577) * weight * elapsedTime)
+
+            $rootScope.distanceTravelled = distOfTravel
+            $rootScope.timeTaken = elapsedTime
+            $rootScope.avgPace = pace
+            $rootScope.calburn = cburn
                 
             $state.go('activityCompleted')     
         }

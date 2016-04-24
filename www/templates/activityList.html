@@ -1,10 +1,17 @@
 <ion-view title="Activity List">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
 	    <center><h3>List of previous activities</h3></center>
+		
+     		<ion-list show-delete="shouldShowDelete">
+		        <ion-item ng-repeat="activity in actlist"> 
+	        	{{activity.date}} ||  Length: {{ activity.distance}}km || Calories: {{activity.calories}}Cal
+	        	</ion-item>
+	        </ion-list>
+	    
 		<div ng-controller="firebaseCtrl" ng-init="profile()">
 			        <div> 
 				        <div ng-repeat="activity in profile.activities" class ="item">
-				        	{{ activity.date }} || {{ activity.distance }}m || {{ activity.calburn}} Cal
+				        	{{activity.date}} ||  Length: {{ activity.distance}}km || Calories: {{activity.calburn}}Cal
 				        	
 				        </div> 
 			    	</div> 
@@ -44,14 +51,4 @@
     </ion-content>
 </ion-view>
 
-
-<!-- 	        <div ng-controller="activityListCtrl"> 
-		        <ion-list>
-		            <ion-item ui-sref="tabsController.activity1Details" ng-repeat="activity in actlist"> 
-		            {{ activity.date }} : {{ activity.distance}}km : {{ activity.calories }}Kcal burned!
-		        	</ion-item>
-
-		        </ion-list>
-	    	</div>  -->
-   
 

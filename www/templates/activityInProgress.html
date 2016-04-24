@@ -6,22 +6,20 @@
       <ion-content padding="true">
 
             <!--  uncomment the below at production ng-init="startTimer()"-->
-            <div> 
-            <h3 class="center">Time Elapsed: {{hours}}: {{mins}}: {{ rootsecs }} </h3>
+            <div>  
+                  <center>
+                        <h4> Your current Latiude, Longitude: ( {{ shortlat }}, {{ shortlong }}) </h3>
+                        <h4 ng-bind-html="currStep"> </h4>
+                        <h3>You are currently {{ boundmessage }} <h3>   
+                        <h4>Distance of route: {{ routedistance }}m</h4>
+                  </center>
                   
-                  <h3> This is mylat {{ shortlat }} </h3>
-                  <h3> This is mylong {{ shortlong }}</h3> 
-                  
-                  <h4 ng-bind-html="currStep"> </h4>
-                  
-                  <h4>Distance covered so far: {{ distTravelled }}m<h4>
-                  <h4>Distance total of route: {{ routedistance }}m</h4>
-                  <h4>Calories burned so far: {{ totalcb}} calories </h4>
-
                   <div id="map"></div>
+                  <h3>Overview of Directions</h3> 
                   <div id="directionsPanel"></div>
-
+             
                   <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-large button-block button-full" ng-click="sendinfo()">Finish Activity!</button>
+                 
             </div>
       </ion-content>
 

@@ -1,6 +1,14 @@
 // Settings Controller (contains the settings of the user details such as name height etc)   
 angular.module('app.controllers').controller('settingsCtrl', function($scope, $rootScope, $localstorage, $ionicPopup) {
 
+   $rootScope.masteruser= {};
+  
+   $scope.updateSettings = function(user){
+
+      $rootScope.masteruser= angular.copy(user);
+      console.log("Settings updated")
+   }
+ 
    		 	// $rootScope.user = {
 
    		 	// 	fname : '',
