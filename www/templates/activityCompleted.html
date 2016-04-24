@@ -4,12 +4,13 @@
             <center>
 
                 <h2>Congratulations on your activity {{ masteruser.fname }}!</h2>
-
+            </br>
                 <h3>Distance travelled: {{ distanceTravelled  }} m</h3>
-                <h3>Elapsed Time: {{ timeTaken }} </h3>
-                <h3>Average Pace: {{ avgPace }} km/min </h3></br> 
+                <h3>Elapsed Time: {{ timeTaken * 1000 }} seconds </h3>
+            </br>
+                <h3>Average Pace: {{ avgPace }} km/hour </h3>
                 <h3>Calories Burned: {{ calburn }} calories</h3>
-                    
+            </br>
                 </div>
             </center>
         </div>

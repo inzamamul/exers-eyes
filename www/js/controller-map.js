@@ -22,7 +22,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
     var time = 0
     var oldtime = 0 
     var t_distance = 0.0
-    var dateStart = 0 
+    var dateStart = new Date()
 // need to get this from settings         
 
         //calculate route        
@@ -125,7 +125,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                 oldLatLng = $scope.myLatLng
 
 // Alerts the user if they are not near the start latlng 
-                t_distance = 5.0
+                t_distance = 5.0 // 5 meter threshold 
                 var StartMeDelta = google.maps.geometry.spherical.computeDistanceBetween($scope.myLatLng, $scope.startLatLng)
 
                 console.log("distance between me and start" + StartMeDelta)
@@ -158,7 +158,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                     position: $scope.myLatLng,
                     map: $scope.map,
                     // icon: 'http://i.stack.imgur.com/orZ4x.png',
-                    draggable: false
+                     draggable: false
                 });
 
                 directionsDisplay.setMap($scope.map);
@@ -199,15 +199,13 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                     $scope.myLatLng = new google.maps.LatLng($scope.lat, $scope.long);  
                     $scope.searchMarker.setPosition($scope.myLatLng);
 
-// Calculating Distance Travelled & carlories burned
+// Calculating Distance Travelled
 
                     tempDist = google.maps.geometry.spherical.computeDistanceBetween($scope.myLatLng, oldLatLng); 
                     console.log("tempDist travelled: " + tempDist)
                     geoDist = geoDist + tempDist
                     $scope.distTravelled = geoDist.toFixed(0);
                     console.log("GEOMETRICAL DISTANCE TRAVELLED" + $scope.distTravelled)
-
-                    CBurn(tempDist)
 
 // Updating the current step          
                     
@@ -231,6 +229,27 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                                 alert(reason);
                             });
                     }       
+//
+
+                    var StartMeDelta = google.maps.geometry.spherical.computeDistanceBetween($scope.myLatLng, $scope.startLatLng)
+
+                    console.log("distance between me and start" + StartMeDelta)
+                    if(StartMeDelta > t_distance){
+
+                        navigator.vibrate(500);
+                        var alertDistanceFar = $ionicPopup.alert({
+                            title: 'Not near start location!',
+                            template: 'Get near starting location to begin timer!'
+                        });
+                            alertDistanceFar.then(function(res) {
+                            console.log('user alerted');
+                        });
+                    }else{
+    // Starts the date for the timer
+                        var dateStart = new Date();
+                        console.log("date logged for timer" + dateStart)
+                    }
+
 
 // checks if user is within or out of bounds 
                     $scope.polyline = new google.maps.Polyline({ path: $scope.overview});
@@ -294,45 +313,19 @@ angular.module('app.controllers').controller('MapController', function($scope, $
 
         } // end when device ready 
 
-        // returns the calories burnt by user 
-        function CBurn(distance) {
-
-            weight = 75
-            weight = $rootScope.weight
-
-            distance = distance / 1000 // distance in km
-            //time in hours 
-            time = (($scope.time) + 1) / 3600 // add one to avoid dividing by zero (720 secs = 5 mins)
-            deltatime = time - oldtime
-            pace = (distance / deltatime) 
-            $scope.avgpace = pace
-
-            console.log("pace: " + pace + "time: " + time + "weight: " +  weight)
-            // 
-            // CB = [0.0215 x KPH3 - 0.1765 x KPH2 + 0.8710 x KPH + 1.4577] x WKG x T
-            // KPH = Walking speed in km/h
-            // WKG = User Weight in kilograms
-            // T = Time in hours 
-
-            cburn = ((0.0215 * Math.pow(3, pace)- (0.1765 * Math.pow(2, pace)) + (0.8710 * pace) + 1.4577) * weight * time)
-
-            console.log("calories burned: " + cburn)
-            oldtime = time
-            totalcburn = totalcburn + cburn
-            totalcburn = totalcburn.toFixed(2)
-            $scope.totalcb = totalcburn
-
-        }
-
         $scope.sendinfo = function() {
 
         weight = $rootScope.masteruser.weight
         var dateEnd = new Date();
+// test console
+        console.log("enddate" + dateEnd)
+        console.log("start " + dateStart)
 
-        var deltaDate = dateEnd - $rootScope.dateStart;
+        var deltaDate = dateEnd - dateStart;
         console.log("delta date: " + deltaDate)
 
-        var elapsedTime = Math.abs(deltaDate) / 360000
+        var elapsedTime = (Math.abs(deltaDate) / 1000/60/60) + 0.0001
+            elapsedTimeF = elapsedTime.toFixed(1)
         console.log("Elapsed Time: " + elapsedTime)
 
         var distOfTravel = $scope.distTravelled / 1000
@@ -340,15 +333,33 @@ angular.module('app.controllers').controller('MapController', function($scope, $
         // need to reset all values after submitting
 
         var pace = distOfTravel/elapsedTime // pace in kmh
+        console.log("pace: " + pace)
 
+
+        var a = (0.0215 * Math.pow(3, pace))
+        var b = (0.1765 * Math.pow(2, pace))
+        var c = (0.8710 * pace)
+        var d = weight
+        var e = elapsedTime
+
+        console.log(a, b, c, d, e)
+        
+        var cburn = ((a- b + c) * d * e)
         var cburn = ((0.0215 * Math.pow(3, pace)- (0.1765 * Math.pow(2, pace)) + (0.8710 * pace) + 1.4577) * weight * elapsedTime)
+            cburn = cburn.toFixed(1)
+        console.log("cburn: " + cburn)
 
             $rootScope.distanceTravelled = distOfTravel
-            $rootScope.timeTaken = elapsedTime
+            $rootScope.timeTaken = elapsedTimeF
             $rootScope.avgPace = pace
             $rootScope.calburn = cburn
                 
-            $state.go('activityCompleted')     
+            $state.go('activityCompleted')  
+
+        dateStart = 0
+        dateEnd = 0 
+        elapsedTime = 0 
+        pace = 0 
         }
 
 });
