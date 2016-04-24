@@ -23,6 +23,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
     var oldtime = 0 
     var t_distance = 0.0
     var dateStart = new Date()
+    var watch // var for watching LatLng
       
 
         //calculate route        
@@ -353,6 +354,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
             pace = 0 
 
             $scope.startLatLng = 0
+            watch.clearWatch();
             $state.go('activityCompleted')  
 
         }
