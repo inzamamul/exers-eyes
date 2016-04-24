@@ -6,7 +6,11 @@ angular.module('app.controllers').controller('settingsCtrl', function($scope, $r
    $scope.updateSettings = function(user){
 
       $rootScope.masteruser= angular.copy(user);
-      console.log("Settings updated")
+      
+      var alertPopup = $ionicPopup.alert({
+            title: 'Settings updated',
+            template: "Your settings have been updated." + $rootScope.masteruser.fname
+            });      
    }
  
    		 	// $rootScope.user = {

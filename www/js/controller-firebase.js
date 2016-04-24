@@ -32,8 +32,11 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
             });
         }).then(function(authData) {
             $state.go("tabsController.settings");
-        }).catch(function(error) {
-            console.error("ERROR " + error);
+        }).catch(function(error) {        
+            var alertPopup = $ionicPopup.alert({
+            title: 'Signup Error!!',
+            template: error
+            });      
         });
     };
 
@@ -136,7 +139,6 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
         
         $scope.setUserDetails = function() {
         
-  //      var settingdetails = $firebaseObject(fbase.child("users/" + fbaseAuth.uid + "/profile/details"));
         var settingdetails = $scope.profile.child("details");
 
             settingdetails.set({
@@ -148,13 +150,6 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
                 "height" : $scope.user.height
 
             })
-            // }, function(error){
-            //     if(error){
-            //         console.log("There was an error in setting user details ")
-            //     } else {
-            //         console.log("User details updated successfully")
-            //     }
-            // });
         }
     };
 	
