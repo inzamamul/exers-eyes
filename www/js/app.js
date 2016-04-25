@@ -1,10 +1,4 @@
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-
 // this is the "constructor" of the angular app - load dependencies of the app here 
 angular.module('app', ['ionic','firebase', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage'])
 
@@ -19,8 +13,7 @@ angular.module('app', ['ionic','firebase', 'ngCordova', 'app.controllers', 'app.
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    
-    //init firebase var
+
   });
 
 })

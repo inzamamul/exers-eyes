@@ -27,29 +27,4 @@ angular.module('app.services', [])
   }
 }])
 
-// // Adapted from http://jsfiddle.net/27mk1n1o/
-// .factory('RouteFactory', [function(){
 
-//   var chosenRoute = [];
-//   return {
-
-//     getRoute: function() {
-//       return chosenRoute; 
-
-//   }, 
-//     setRouteName: function(routename) {
-//       chosenRoute.name = routename;
-//     },
-
-//     setRouteStart: function(routeStart) {
-//       chosenRoute.startLoc =  routeStart;
-//     },
-
-//     setRouteEnd: function(routeStart) {
-//       chosenRoute.endLoc = routeStart;
-//     }
-
-
-//   };
-
-// }])

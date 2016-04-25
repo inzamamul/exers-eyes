@@ -1,34 +1,5 @@
 angular.module('app.controllers').controller('activityListCtrl', function($scope, $firebaseObject, $ionicPopup) {
 
-    // $scope.list = function() {
-
-    // fbaseAuth = $fbase.getAuth(); 
-    //     if(fbaseAuth){
-    //         var syncObject = $firebaseObject(fbase.child("users/" + fbaseAuth.uid));
-    //         syncObject.$bindTo($scope, "data");
-    //     }
-
-    // }
-
-    // $scope.create = function() { 
-
-    //     $ionicPopup.prompt({
-    //             title: 'Enter a new activity item',
-    //             inputType: 'text'
-    //         })
-    //         .then(function(result) {
-    //             if(result !== "") {
-    //                 if($scope.data.hasOwnProperty("activity") !== true) {
-    //                     $scope.data.todos = [];
-    //                 }
-    //                 $scope.data.todos.push({title: result});
-    //             } else {
-    //                 console.log("Action not completed");
-    //             }
-    //         });
-
-    // }
-
     $scope.actlist = [
         {
           'date': '25/3/2016',

@@ -1,3 +1,4 @@
+//Google Maps javascript directions services available from https://developers.google.com/maps/documentation/javascript/ 
 //Adapted from http://www.gajotres.net/using-cordova-geoloacation-api-with-google-maps-in-ionic-framework/
  
 angular.module('app.controllers').controller('MapController', function($scope, $rootScope, $state, $cordovaGeolocation, $ionicPopup,  $ionicLoading, $cordovaVibration) { 

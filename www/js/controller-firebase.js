@@ -1,3 +1,4 @@
+// Created with assistance from https://www.firebase.com/docs/web/libraries/ionic/guide.html
 // Controller for Activity Completed (when the user has finished the activity)
 angular.module('app.controllers').controller('firebaseCtrl', function($scope, $cordovaVibration, $state, $firebaseAuth, $firebaseObject, $ionicPopup) {
 
