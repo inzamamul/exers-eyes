@@ -8,17 +8,18 @@
             <!--  uncomment the below at production ng-init="startTimer()"-->
             <div>  
                   <center>
-                        <h4> Your current Latiude, Longitude: ( {{ shortlat }}, {{ shortlong }}) </h3>
+                        <h5> Your current Latiude, Longitude: ( {{ shortlat }}, {{ shortlong }}) </h5>
                         <h4 ng-bind-html="currStep"> </h4>
-                        <h3>You are currently {{ boundmessage }} <h3>   
+                        <h3 ng-bind="boundmessage">You are currently {{ boundmessage }} <h3>   
+  
                         <h4>Distance of route: {{ routedistance }}m</h4>
                   </center>
+
+                  <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-large button-block button-full" ng-click="sendinfo()">Finish Activity!</button>
                   
                   <div id="map"></div>
                   <h3>Overview of Directions</h3> 
                   <div id="directionsPanel"></div>
-             
-                  <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-large button-block button-full" ng-click="sendinfo()">Finish Activity!</button>
                  
             </div>
       </ion-content>

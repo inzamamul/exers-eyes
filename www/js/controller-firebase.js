@@ -11,12 +11,6 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
         }).then(function(authData) {
             $state.go('tabsController.dashboard')
 
-            // Vibrate showing logged in successfully
-            document.addEventListener('deviceready', function () {
-           
-                navigator.vibrate(100);
-            }, false);  
-
             console.log("sucessfully logged in! ")
             
         }).catch(function(error) {
@@ -38,10 +32,7 @@ var fbase = new Firebase('https://exers-eyes.firebaseio.com/'); // Exers-Eyes fi
                 password: login_password
             });
         }).then(function(authData) {
-            // Vibrate showing registered in successfully
-            document.addEventListener('deviceready', function () {  
-                navigator.vibrate([100]);
-            }, false);  
+            
             $state.go("tabsController.settings");
         }).catch(function(error) {        
             var alertPopup = $ionicPopup.alert({

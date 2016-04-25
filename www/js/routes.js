@@ -54,36 +54,6 @@ angular.module('app.routes', [])
     controller: 'MapController'
   })
 
-  .state('tabsController.activity1Details', {
-    url: '/activity1',
-    views: {
-      'tab2': {
-        templateUrl: 'templates/activity1Details.html',
-        controller: 'activity1DetailsCtrl'
-      }
-    }
-  })
-
-  .state('tabsController.activity2Details', {
-    url: '/activity2',
-    views: {
-      'tab2': {
-        templateUrl: 'templates/activity2Details.html',
-        controller: 'activity2DetailsCtrl'
-      }
-    }
-  })
-
-  .state('tabsController.activity3Details', {
-    url: '/activity-3',
-    views: {
-      'tab2': {
-        templateUrl: 'templates/activity3Details.html',
-        controller: 'activity3DetailsCtrl'
-      }
-    }
-  })
-
   .state('activityCompleted', {
     url: '/activity-complete',
     templateUrl: 'templates/activityCompleted.html',

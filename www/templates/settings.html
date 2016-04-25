@@ -1,51 +1,47 @@
-<ion-view title="Settings" ng-init="profile()">
+<ion-view title="Settings">
 
-        <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-content overflow-scroll="false" padding="true" class="has-header">
 
+        <h2 class="center">About You!</h2></br>
+            
             <ion-list> 
-
-                <h2 class="center">About You!</h2></br>
                 
                 <label class="item item-input" name="first-name">
                     <span class="input-label">First Name</span>
-                    <input type="text" ng-model="user.fname">
+                    <input type="text" ng-model="user.fname"></input>
                 </label>
            
                 <label class="item item-input" name="last-name">
                     <span class="input-label">Last Name</span>
-                    <input type="text"  ng-model="user.lname">
+                    <input type="text"  ng-model="user.lname"></input>
                 </label>
                 
                 <label class="item item-input" name="age">
                     <span class="input-label">Age</span>
-                    <input type="number" string-to-number ng-model="user.age">
+                    <input type="number" ng-model="user.age"></input>
                 </label>
             
             
                 <label class="item item-input" name="weight">
                     <span class="input-label">Weight (kg)</span> 
-                    <input type="number" string-to-number ng-model="user.weight">
+                    <input type="number" ng-model="user.weight"></input>
                 </label>
         
             
                 <label class="item item-input" name="height">
                     <span class="input-label">Height (cm)</span>
-                    <input type="number" string-to-number ng-model="user.height">
+                    <input type="number" ng-model="user.height"></input>
                 </label>
             </ion-list>
+            </br> 
+            </br> 
 
-    </br> 
-    </br> 
+        <div ng-controller="firebaseCtrl">  
+                <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-arrow-right-b button-full" ng-click="updateSettings(user)">Save Details</button>
+                </br>
+                <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-log-out button-full" ng-click="logout()">Log Out</button>       
 
-    <div ng-controller="firebaseCtrl">
-        <div>   
-            <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-arrow-right-b button-full" ng-click="updateSettings(user)">Save Details</button>
-            </br>
-            <button style="font-weight:600;color:#FFFFFF;" class="button button-positive button-block button-large icon-left ion-log-out button-full" ng-click="logout()">Log Out</button>
         </div> 
-
-    </div> 
         </ion-content>
 
-    </body> 
 </ion-view>

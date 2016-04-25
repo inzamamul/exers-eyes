@@ -22,7 +22,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
     var time = 0
     var oldtime = 0 
     var t_distance = 0.0
-    var dateStart = new Date()
+   var dateStart = new Date()
     var watch // var for watching LatLng
       
 
@@ -32,6 +32,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
 
         function calculateRoute(directionsService, directionsDisplay){
 
+            dateStart = new Date()
             console.log("Map: routestart at: " + $rootScope.routestart + " route end at: " + $rootScope.routeend)
             start = "51.523045, -0.039911"
             end = "51.522503, -0.041855"
@@ -59,8 +60,6 @@ angular.module('app.controllers').controller('MapController', function($scope, $
             }, function(response, status) {
                     if (status === google.maps.DirectionsStatus.OK) {
                         
-
-
                         directionsDisplay.setDirections(response); // displays directions on maps
                         walkingSteps(response);
 
@@ -112,9 +111,9 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                 console.log("user weight: " + $rootScope.weight)
 
             var posOptions = {
-                enableHighAccuracy: true,
-                timeout : 100000,
-                maximumAge: 3600000
+                enableHighAccuracy: false,
+                timeout : 10000,
+                maximumAge: 5000
             };
          
             $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
@@ -174,9 +173,9 @@ angular.module('app.controllers').controller('MapController', function($scope, $
 
 // watching latlong
             var watchOptions = {
-                frequency : 3000, 
-                timeout : 100000, 
-                maximumAge: 3600000,// 
+               frequency : 2000,  // retrieve location every 3000 ms
+                timeout : 180000, 
+                maximumAge: 5000,// 
                 enableHighAccuracy: false // may cause errors if true
             };
 
@@ -240,8 +239,8 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                         navigator.vibrate(50);
                     }else{
     // Starts the date for the timer
-                        var dateStart = new Date();
-                        console.log("date logged for timer" + dateStart)
+                        // var dateStart = new Date();
+                        // console.log("date logged for timer" + dateStart)
                     }
 
 
@@ -249,18 +248,21 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                     $scope.polyline = new google.maps.Polyline({ path: $scope.overview});
                     console.log("route polyline: " + $scope.polyline)
 
-                    $scope.onpolyInner = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-7)
-                    $scope.onpolyOuter = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-5)
+                    var onpolyInner = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 10e-4)
+                    var onpolyOuter = google.maps.geometry.poly.isLocationOnEdge($scope.myLatLng , $scope.polyline, 7*10e-4)
                     
-                    if($scope.onpolyInner && $scope.onpolyOuter){
-                        $scope.boundmessage = "within inner and outerbounds"; 
-                    }else if(!$scope.onpolyInner && $scope.onpolyOuter){
-                        $scope.boundmessage = "within outer bounds"; 
+                    if(onpolyInner){
+                        $scope.boundmessage = "within inner bounds of route"
+                    }else if(!onpolyInner && onpolyOuter){
+                        $scope.boundmessage = "outside inner bounds of route"
+
+                    }else if(!onpolyOuter){
+                        $scope.boundmessage = "outside inner bounds of route"
                     }else{
-                        $scope.boundmessage = "not within either inner or outer bounds"; 
+                        $scope.boundmessage = "you are not near route."
                     }
 
-                    if($scope.onpolyInner == false){
+                    if(onpolyInner == false && onpolyOuter == true){
 
                         console.log("you have left the inner bounds");
                          
@@ -277,8 +279,9 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                             }, function (reason) {
                                 alert(reason);
                             });
-
-                        if($scope.onpolyOuter == false){
+                    }
+                    
+                    if(onpolyInner == false && onpolyOuter == false){
                             console.log("you have left the outer bounds");
                             
                             // Vibrate twice to indicate out of outerbounds
@@ -293,8 +296,7 @@ angular.module('app.controllers').controller('MapController', function($scope, $
                                 //   alert('success');
                                 }, function (reason) {
                                     alert(reason);
-                                });
-                            }
+                                });                   
 
                     } // if not within inner bounds 
 
@@ -309,6 +311,12 @@ angular.module('app.controllers').controller('MapController', function($scope, $
 
         $scope.sendinfo = function() {
 
+        // console.log("weight: " + $rootScope.masteruser.weight)
+        var weight = 0 
+        weight = $rootScope.masteruser.weight
+        if($rootScope.masteruser.weight == null){
+            console.log("weight undefined")
+        }
         weight = $rootScope.masteruser.weight
         var dateEnd = new Date();
 // test console
@@ -318,8 +326,8 @@ angular.module('app.controllers').controller('MapController', function($scope, $
         var deltaDate = dateEnd - dateStart;
         console.log("delta date: " + deltaDate)
 
-        var elapsedTime = (Math.abs(deltaDate) / 1000/60/60) + 0.0001
-            elapsedTimeF = elapsedTime.toFixed(1)
+        var elapsedTime = (Math.abs(deltaDate))// adder to avoid dividing by 0
+            elapsedTime = elapsedTime/3600000;
         console.log("Elapsed Time: " + elapsedTime)
 
         var distOfTravel = $scope.distTravelled / 1000
@@ -328,23 +336,18 @@ angular.module('app.controllers').controller('MapController', function($scope, $
 
         var pace = distOfTravel/elapsedTime // pace in kmh
         console.log("pace: " + pace)
-
-
-        var a = (0.0215 * Math.pow(3, pace))
-        var b = (0.1765 * Math.pow(2, pace))
-        var c = (0.8710 * pace)
-        var d = weight
-        var e = elapsedTime
-
-        console.log(a, b, c, d, e)
         
-        var cburn = ((a- b + c) * d * e)
+
         var cburn = ((0.0215 * Math.pow(3, pace)- (0.1765 * Math.pow(2, pace)) + (0.8710 * pace) + 1.4577) * weight * elapsedTime)
             cburn = cburn.toFixed(1)
+            pace = pace.toFixed(1)
+            elapsedTime = elapsedTime.toFixed(1)
+
         console.log("cburn: " + cburn)
 
+
             $rootScope.distanceTravelled = distOfTravel
-            $rootScope.timeTaken = elapsedTimeF
+            $rootScope.timeTaken = elapsedTime
             $rootScope.avgPace = pace
             $rootScope.calburn = cburn
             
@@ -352,9 +355,10 @@ angular.module('app.controllers').controller('MapController', function($scope, $
             dateEnd = 0 
             elapsedTime = 0 
             pace = 0 
+            stepcounter = 0
 
             $scope.startLatLng = 0
-            watch.clearWatch();
+         //   watch.clearWatch();
             $state.go('activityCompleted')  
 
         }

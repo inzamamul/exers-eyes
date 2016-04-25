@@ -5,29 +5,11 @@
 angular.module('app.controllers', [])
 
 // Dashboard Controller (main "homepage")
-.controller('dashboardCtrl', function($scope,  $rootScope, $localstorage, $cordovaVibration) {
+.controller('dashboardCtrl', function($scope, $state, $rootScope, $localstorage, $cordovaVibration) {
 
-	// $scope.getUser = function() {
-
-	// 	if($rootScope.fname == $localstorage.get('fname')){
-	// 	$rootScope.fname = $localstorage.get('fname');
-
-	// 	}else{
-
-	// 	$rootScope.fname = $localstorage.get('fname');
-	// 	}
-	// 	// console.log("dash: " + $rootScope.fname)
-	// }
-
-	// $rootScope.$on('$stateChangeStart', 
-	// function(event, toState, toParams, fromState, fromParams, options){ 
-	// 	if(toState.name =='tabsController.dashboard')
-	// 		$scope.getUser()
-	// })
-	// $scope.getUser()
 
 	$scope.tester = function() { 
-		console.log("button clicked :)")
+		console.log("button clicked.")
 		// make sure your the code gets executed only after `deviceready`.
 		document.addEventListener('deviceready', function () {
 		   
@@ -54,13 +36,4 @@ angular.module('app.controllers', [])
 	}
 })
 
-// Controllers for the activities of individual pieces of historical activity (may be made redundnant)   
-.controller('activity1DetailsCtrl', function($scope) {
-
-})
-   
-.controller('activity2DetailsCtrl', function($scope) {
-
-})
-  
 

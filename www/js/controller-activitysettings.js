@@ -101,4 +101,17 @@ angular.module('app.controllers').controller('activitySettingsCtrl', function( $
 				$state.go('activityInProgress')
 			}
 		};
+
+		$scope.cancelActivity = function(){
+
+			$rootScope.routeName = {}
+	 		$rootScope.routestart = {}
+	 		$rootScope.routeend = {}
+
+
+			$scope.chosenroute.choice.name = {};
+	 		$scope.chosenroute.choice.startLoc = {};
+	 		$scope.chosenroute.choice.endLoc = {};
+
+		}
 })
