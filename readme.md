@@ -1,6 +1,6 @@
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 ##  ExersEyes Mobile App - ReadMe 
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 ‘Development Of A Mobile Application To Provide Assistance With Exercise To A Visually-Impaired User’
 
@@ -18,9 +18,9 @@ The United Kingdom
 Undergraduate Final Year Project
 Supervisor: Dr. Tony Stockman
 
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 ## General Overview
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 This project is part of the final year project that is to be undertaken by BSc (Hons) Computer Science students during the final year of their degree. This project makes up 15% of the degree classification.
 
@@ -29,65 +29,61 @@ This is a mobile application developed using the Ionic framework that aims to pr
 For the accompanying project report and documentation for this report, please contact Inzamamul via ec12326@qmul.ac.uk or via inz.haque@me.com
 
 
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 ## Installation
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 To install the application please follow the following steps;
 
 1. Install node.js (available via https://nodejs.org/en/download/)
 
 2. Install the Ionic and Cordova command line interface (CLI) 
-	
-	$ npm install -g cordova ionic
 
-3. Install the iOS and/or Android SDKs: 
-	
-	3a.
-	For iOS devices download the latest version of Xcode (via https://itunes.apple.com/us/app/xcode/id497799835?mt=12) (N.B. Will only work on machines running Mac OS X). Install deploy tools: 
+$ npm install -g cordova ionic
 
-	    $ npm install -g ios-sim
-	    $ npm install -g ios-deploy
+3. Install the iOS and/or Android SDKs (this step can be skipped if you plan to only run it in localhost): 
 
-	3b.
-	For Android devices download the latest version of Android Studio (via http://developer.android.com/sdk/installing/index.html?pkg=studio). Proceed to include the SDK's tools and platform-tools directory in your PATH. On machines running Mac OS X, this can be done by modifying ~/.profile and inserting the below; 
+3a.
+For iOS devices download the latest version of Xcode (via https://itunes.apple.com/us/app/xcode/id497799835?mt=12) (N.B. Will only work on machines running Mac OS X). Install deploy tools: 
 
-	    export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools
+$ npm install -g ios-sim
+$ npm install -g ios-deploy
+
+3b.
+For Android devices download the latest version of Android Studio (via http://developer.android.com/sdk/installing/index.html?pkg=studio). Proceed to include the SDK's tools and platform-tools directory in your PATH. On machines running Mac OS X, this can be done by modifying ~/.profile and inserting the below; 
+
+export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools
 
 4. Download the Exers-Eyes repo from GitHub:
 
-	$ git clone https://github.com/inzamamul/exers-eyes.git
+$ git clone https://github.com/inzamamul/exers-eyes.git
 
 5. Change into the exers-eyes directory
-	
-	$ cd exers-eyes
 
-6. Add platforms to project and build project
+$ cd exers-eyes
 
-	$ ionic platform add ios && ionic build ios
-	$ ionic build ios && ionic build android
+6. Add platforms to project and build project (skip if you only want to run in localhost)
+
+$ ionic platform add ios && ionic build ios
+$ ionic build ios && ionic build android
 
 7. Run project in localhost
-	
-	$ ionic serve 
-	
-	7a. Or alternatively, emulate on iOS / Android emulator. (N.B. replace "ios" with "android" based on whether to emulate on iOS or Android systems)
 
-		$ ionic emulate ios 
+$ ionic serve 
 
-	7b. Or alternatively, run on a connected iOS device (N.B. replace "ios" with "android" based on whether to run on iOS or Android systems)
+7a. Or alternatively, emulate on iOS / Android emulator. (N.B. replace "ios" with "android" based on whether to emulate on iOS or Android systems)
 
-		$ ionic run ios --device
+$ ionic emulate ios 
 
------------------------------------------------------------------------------
+7b. Or alternatively, run on a connected iOS device (N.B. replace "ios" with "android" based on whether to run on iOS or Android systems)
+
+$ ionic run ios --device
+
+----------------------------------------------------------------------
 ## Usage 
------------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-1. Login using credentials:
+1. Open app and signup as a new user
 
-	Email: 		user@test.com
-	Password: 	exercise
-
-	Or alternatively, sign up using credentials of your own.
 
 2. Enter personal details such as name and age on the settings page. The user weight is needed to compute the calorie burn that is induced from completed exercises. Tap "Save Details" when completed.
 
@@ -95,11 +91,11 @@ To install the application please follow the following steps;
 
 4. Select a route near you from the list of available routes. 
 
-5. If not near the start lcoation of the route, relocate yourself near the start location of the route. 
+5. If not near the start location of the route, relocate yourself near the start location of the route. 
 
-6. Once near the start of the route, the timer will begin counting as well as the dynamic directions service that will update based on your location along the route. On this screen you will be presented with; the distance that you have travelled, the calories you have burned, the distance of the route. 
+6. Once near the start of the route, the timer will begin counting as well as the dynamic directions service that will update based on your location along the route. 
 
-The device will now be engage to provide you with haptic and audio feedback depending on if you leave the route in the form of a single vibration and voice notification if you leave the inner bounds of the route, and a double vibration and voice notification if you leave the outer bounds of the route. The inner and outer bounds of the route have been designated as anywhere within 10e-7 decimal degrees and 10e-5 decimal degrees within the route resepectively. 
+The device will now provide you with haptic and audio feedback depending on if you leave the route in the form of a single vibration and voice notification if you leave the inner bounds of the route, and a double vibration and voice notification if you leave the outer bounds of the route. 
 
 Once you have completed the route, or have decided to end your exercise early, tap on the "Finish Activity" button. 
 
